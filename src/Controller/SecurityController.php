@@ -5,49 +5,51 @@ namespace App\Controller;
 use App\Entity\Personne;
 use App\Form\RegisterType;
 use App\Model\PersonneDTO;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
 use FOS\RestBundle\View\View;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Validator\ConstraintViolationList;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 
 class SecurityController extends AbstractFOSRestController
 {
 
-    /**
-     * @Route("api/login_check", name="login")
-     */
-    public function login(): JsonResponse
-    {
+    // /**
+    //  * @Route("api/login_check", name="login")
+    //  */
+    // public function login(): JsonResponse
+    // {
         
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+    //     // if ($this->getUser()) {
+    //     //     return $this->redirectToRoute('target_path');
+    //     // }
 
-        // get the login error if there is one
-       $user=$this->getUser();
-       $roles=[];
-       foreach($user->getRolePers() as $rolePers)
-           {
-           $roles[]=$rolePers->getRoleId()->getLabel();
-           }
-       return $this->json( array(  'username'=> $user->getUsername(), 'roles'=>$roles,'nom'=>$user->getNom() ) );
-    }
+    //     // get the login error if there is one
+    //    $user=$this->getUser();
+    //    $roles=[];
+    //    foreach($user->getRolePers() as $rolePers)
+    //        {
+    //        $roles[]=$rolePers->getRoleId()->getLabel();
+    //        }
+    //    return $this->json( array(  'username'=> $user->getUsername(), 'roles'=>$roles,'nom'=>$user->getNom() ) );
+    // }
 
     // /**
     //  * @Route("api/login", name="app_login")
@@ -99,26 +101,32 @@ class SecurityController extends AbstractFOSRestController
      * @Rest\View()
      * @ParamConverter("dto",converter="fos_rest.request_body")
      */
-    public function register(ConstraintViolationList $violations,PersonneDTO $dto,UserPasswordEncoderInterface $encoder, MailerInterface $mailer){
+    public function register(ConstraintViolationList $violations,PersonneDTO $dto,PasswordHasherFactoryInterface $hasherFactory,UserPasswordEncoderInterface $encoder,UserPasswordHasherInterface $hasher, MailerInterface $mailer){
      if (sizeof($violations) > 0){
          return $this->view(["errors" => $violations]);
      }
         $salt=uniqid();
         $personne=$dto->toEntity();
         $personne->setSalt($salt);
-        $encoded = $encoder->encodePassword($personne, $personne->getPassword());
-        $personne->setPassword($encoded);
+        // $hasher = $hasherFactory->getPasswordHasher($personne->getPassword());
+        
+        // $hashedPassword = $hasher->hash($personne->getPassword());
+        
+        // $personne->setPassword($hashedPassword);
+        // $encoded = $encoder->encodePassword($personne, $personne->getPassword());
+        // $personne->setPassword($encoded);
+        $personne->setPassword($hasher->hashPassword($personne, $personne->getPassword()));
         $personne->setIsActive(false);
         $personne->setIsVerified(false);
         $em = $this->getDoctrine()->getManager();
         $em->persist($personne);
         $em->flush();
-        $email=new Email() ;
-        $email->to($personne->getEmail());
-        $email->subject('Bienvenue sur le site du referendum à initiative citoyen');
-        $email->html('<div><a href="https://localhost:8000/api/activate/'.$personne->getSalt().'/'.$personne->getId().'">Veuillez cliquer sur ce lien pour activer votre compte </a></div>');
-        $email->from("arbreplantebuisson@gmail.com");
-        $mailer->send($email);
+        // $email=new Email() ;
+        // $email->to($personne->getEmail());
+        // $email->subject('Bienvenue sur le site du referendum à initiative citoyen');
+        // $email->html('<div><a href="https://localhost:8000/api/activate/'.$personne->getSalt().'/'.$personne->getId().'">Veuillez cliquer sur ce lien pour activer votre compte </a></div>');
+        // $email->from("arbreplantebuisson@gmail.com");
+        // $mailer->send($email);
         return $this->view(["personne"=> $personne],Response::HTTP_CREATED);
     }
 }
