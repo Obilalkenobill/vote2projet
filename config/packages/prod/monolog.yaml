@@ -1,15 +1,17 @@
 monolog:
     handlers:
-        # this "file_log" key could be anything
-        file_log:
+        main:
+            type: fingers_crossed
+            action_level: error
+            handler: nested
+            buffer_size: 50
+            excluded_404s:
+                - ^/
+        nested:
             type: stream
-            # log to var/log/(environment).log
             path: "%kernel.logs_dir%/%kernel.environment%.log"
-            # log *all* messages (debug is lowest level)
             level: debug
-
-        syslog_handler:
-            type: syslog
-            # log error-level messages and higher
-            level: error
-
+        console:
+            type: console
+            process_psr_3_messages: false
+            channels: ["!event", "!doctrine"]
