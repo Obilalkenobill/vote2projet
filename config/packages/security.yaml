@@ -70,6 +70,8 @@ security:
         - { path: ^/api/activate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/users/email/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/users/name/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/index.php, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/dev.php, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
