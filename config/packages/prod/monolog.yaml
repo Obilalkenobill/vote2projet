@@ -1,10 +1,28 @@
 monolog:
     handlers:
-        main:
+        filter_for_errors:
+            type: fingers_crossed
+            # if *one* log is error or higher, pass *all* to file_log
+            action_level: error
+            handler: file_log
+
+        # now passed *all* logs, but only if one log is error or higher
+        file_log:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
-            level: debug
-            channels: ~
+
+        # still passed *all* logs, and still only logs error or higher
+        syslog_handler:
+            type: syslog
+            level: error
+
+# monolog:
+#     handlers:
+#         main:
+#             type: stream
+#             path: "%kernel.logs_dir%/%kernel.environment%.log"
+#             level: debug
+#             channels: ~
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:
