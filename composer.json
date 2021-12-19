@@ -23,7 +23,6 @@
         "symfony/cache": "5.4.0",
         "symfony/config": "5.4.0",
         "symfony/console": "5.4.0",
-        "symfony/debug-bundle": "^5.2",
         "symfony/dependency-injection": "5.4.0",
         "symfony/doctrine-bridge": "5.4.0",
         "symfony/dotenv": "5.2.4",
@@ -64,7 +63,6 @@
         "symfony/validator": "5.4.0",
         "symfony/var-exporter": "5.4.0",
         "symfony/web-link": "5.4.0",
-        "symfony/web-profiler-bundle": "6.1.*",
         "symfony/yaml": "5.4.0",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
@@ -77,17 +75,7 @@
         "symfony/phpunit-bridge": "^6.0",
         "symfony/stopwatch": "^5.2",
         "symfony/var-dumper": "^5.2",
-        "symfony/web-profiler-bundle": "6.1.*"
-    },
-    "require-prod": {
-        "symfony/browser-kit": "^5.2",
-        "symfony/css-selector": "^5.2",
-        "symfony/debug-bundle": "^5.2",
-        "symfony/maker-bundle": "^1.0",
-        "symfony/phpunit-bridge": "^6.0",
-        "symfony/stopwatch": "^5.2",
-        "symfony/var-dumper": "^5.2",
-        "symfony/web-profiler-bundle": "6.1.*"
+        "symfony/web-profiler-bundle": "^5.2"
     },
     "config": {
         "optimize-autoloader": true,
