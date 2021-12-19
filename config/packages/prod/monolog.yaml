@@ -1,19 +1,15 @@
 monolog:
     handlers:
-        filter_for_errors:
-            type: fingers_crossed
-            # if *one* log is error or higher, pass *all* to file_log
-            action_level: error
-            handler: file_log
-
-        # now passed *all* logs, but only if one log is error or higher
+        # this "file_log" key could be anything
         file_log:
             type: stream
+            # log to var/log/(environment).log
             path: "%kernel.logs_dir%/%kernel.environment%.log"
+            # log *all* messages (debug is lowest level)
+            level: debug
 
-        # still passed *all* logs, and still only logs error or higher
         syslog_handler:
             type: syslog
+            # log error-level messages and higher
             level: error
-
 
