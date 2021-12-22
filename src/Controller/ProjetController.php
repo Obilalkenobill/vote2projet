@@ -47,8 +47,6 @@ class ProjetController extends AbstractFOSRestController
      * @Rest\View()
      */
     public function readAll(ProjetRepository $repo){
-        $testuser=$this->getUser();
-        dump($testuser);
         return $this->view(["projets"=> $repo->findAllbis()]);
     }
    /**
