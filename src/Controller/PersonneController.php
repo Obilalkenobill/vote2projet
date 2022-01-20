@@ -165,18 +165,17 @@ class PersonneController extends AbstractFOSRestController
 
 
     /**
-     * @Rest\Post(path="/api/personne/imageverif/{personne}", name="personne_image_verif")
+     * @Rest\Post(path="/api/personne/imageverif", name="personne_image_verif")
      * @Rest\View()
      * @param EntityManagerInterface $em
      * @param Request $req
      * @return View
      */
-    public function pathImageVerif(Request $req, EntityManagerInterface $em, Personne $personne, PersonneRepository $repo) {
+    public function pathImageVerif(Request $req, EntityManagerInterface $em, PersonneRepository $repo) {
 
         // if (sizeof($violations) > 0) {
         //     return $this->view(["errors" => $violations]);
         // }
-    //    dump($req->files->get('filephotoverif'));
        try{
        $filephotoverif=$req->files->get('filephotoverif');
        $filerectocarteid=$req->files->get('filerectocarteid');
@@ -185,6 +184,7 @@ class PersonneController extends AbstractFOSRestController
        catch(Exception $ex)
        {
        }
+           $personne=$repo->findOneBy( [ 'id' => ( $req->request->get('UserId') ) ] );
         if( $filephotoverif!=null ){
             $bin=file_get_contents($filephotoverif->getPathname());
             $personne->setphotoverif($bin);
