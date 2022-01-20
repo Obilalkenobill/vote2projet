@@ -121,12 +121,12 @@ class SecurityController extends AbstractFOSRestController
         $em = $this->getDoctrine()->getManager();
         $em->persist($personne);
         $em->flush();
-        // $email=new Email() ;
-        // $email->to($personne->getEmail());
-        // $email->subject('Bienvenue sur le site du referendum à initiative citoyen');
-        // $email->html('<div><a href="https://localhost:8000/api/activate/'.$personne->getSalt().'/'.$personne->getId().'">Veuillez cliquer sur ce lien pour activer votre compte </a></div>');
-        // $email->from("arbreplantebuisson@gmail.com");
-        // $mailer->send($email);
+        $email=new Email() ;
+        $email->to($personne->getEmail());
+        $email->subject('Bienvenue sur le site du referendum à initiative citoyen');
+        $email->html('<div><a href="https://localhost:8000/api/activate/'.$personne->getSalt().'/'.$personne->getId().'">Veuillez cliquer sur ce lien pour activer votre compte </a></div>');
+        $email->from("arbreplantebuisson@gmail.com");
+        $mailer->send($email);
         return $this->view(["personne"=> $personne],Response::HTTP_CREATED);
     }
 }
