@@ -90,9 +90,9 @@ class SecurityController extends AbstractFOSRestController
             $em->persist($personne);
             $em->flush();
             //RedirectResponse
-            return $this->redirect("http://localhost:4200/");
+            return $this->redirect("https://ricbe.herokuapp.com/home"); 
         }
-        return $this->redirect("http://localhost:4200/");
+        return $this->redirect("https://ricbe.herokuapp.com/home");
 
     }
 
