@@ -20,36 +20,7 @@ class ProjetRepository extends ServiceEntityRepository
         parent::__construct($registry, Projet::class);
     }
 
-    // /**
-    //  * @return Projet[] Returns an array of Projet objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Projet
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-
-    public function getNbreBullNull(Projet $projet): array
+    public function getNbreBullNull(Projet $projet)
     {
         $conn = $this->getEntityManager()->getConnection();
         $projet_id=$projet->getId();
@@ -74,7 +45,7 @@ class ProjetRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $conn->fetchAllAssociative($sql);
     }
-    public function getNbreBullContre(Projet $projet): array
+    public function getNbreBullContre(Projet $projet)
     {
         $conn = $this->getEntityManager()->getConnection();
         $projet_id=$projet->getId();
@@ -121,15 +92,11 @@ class ProjetRepository extends ServiceEntityRepository
 
         $conn = $this->getEntityManager()->getConnection();
         $sql = 'DELETE FROM vote WHERE projet_id='.$id.';DELETE FROM Follow WHERE projet_id_id='.$id;
- 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        $conn->fetchAllAssociative($sql);
         $sql ='DELETE FROM commentaire WHERE commentaire_referent_id_id IS NOT NULL AND projet_id_id='.$id.';';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        $conn->fetchAllAssociative($sql);
         $sql ='DELETE FROM commentaire WHERE projet_id_id='.$id.';';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        $conn->fetchAllAssociative($sql);
         $sql ='DELETE FROM projet WHERE id='.$id;
 
         // returns an array of arrays (i.e. a raw data set)
