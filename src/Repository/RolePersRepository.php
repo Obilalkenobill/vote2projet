@@ -26,7 +26,7 @@ class RolePersRepository extends ServiceEntityRepository
         $personne_id=$role_pers->getPersonneId()->getId();
         $role_id=$role_pers->getRoleId()->getId();
         $sql = '
-          DELETE FROM rolepers WHERE personne_id='.$personne_id.' and role_id='.$role_id;
+          DELETE FROM RolePers WHERE personne_id='.$personne_id.' and role_id='.$role_id;
         // returns an array of arrays (i.e. a raw data set)
         return $conn->fetchAllAssociative($sql);
     }
@@ -35,7 +35,7 @@ class RolePersRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $personne_id=$personne->getId();
         $sql = '
-          DELETE FROM rolepers WHERE personne_id='.$personne_id.';DELETE FROM vote where personne_id='.$personne_id.';DELETE FROM Follow where personne_id_id='.$personne_id.';DELETE FROM commentaire where personne_id_id='.$personne_id.';';
+          DELETE FROM RolePers WHERE personne_id='.$personne_id.';DELETE FROM vote where personne_id='.$personne_id.';DELETE FROM Follow where personne_id_id='.$personne_id.';DELETE FROM commentaire where personne_id_id='.$personne_id.';';
           $conn->fetchAllAssociative($sql);
         $sql2='DELETE FROM projet WHERE personne_id_id='.$personne_id;
         $result=$conn->fetchAllAssociative($sql2);
@@ -47,7 +47,7 @@ class RolePersRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $role_id=$role_pers->getRoleId()->getId();
         $sql = '
-          DELETE FROM rolepers WHERE role_id='.$role_id.';DELETE FROM role WHERE id='.$role_id;
+          DELETE FROM RolePers WHERE role_id='.$role_id.';DELETE FROM role WHERE id='.$role_id;
           $result= $conn->fetchAllAssociative($sql);
 
         // returns an array of arrays (i.e. a raw data set)
