@@ -20,19 +20,16 @@ class PersonneRepository extends ServiceEntityRepository
     }
 
 
-    public function setRole($personne_id,$role_id): array
+    public function setRole($personne_id,$role_id)
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
            INSERT INTO role_pers (personne_id_id,role_id_id)
-           VALUES (:personne_id,:role_id);
+           VALUES ('.$personne_id.','.$role_id.');
             ';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(['personne_id' => $personne_id, 'role_id'=>$role_id]);
-
         // returns an array of arrays (i.e. a raw data set)
-        return $stmt->fetchAllAssociative();
+        return $conn->fetchAllAssociative($sql);
     }
 
     public function setROLE_USERtoUserID($UserID){
@@ -41,17 +38,14 @@ class PersonneRepository extends ServiceEntityRepository
         $sql = '
            SELECT id FROM role WHERE label="ROLE_USER"
             ';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
 
         // returns an array of arrays (i.e. a raw data set)
-        $role_id=$stmt->fetchAllAssociative();
+        $role_id=$conn->fetchAllAssociative($sql);
         $role_id=$role_id[0]["id"];
         $sql = '
         INSERT INTO rolepers (personne_id,role_id) values('.$UserID.','.$role_id.');
          ';
-     $stmt = $conn->prepare($sql);
-     $stmt->execute();
+     return $conn->fetchAllAssociative($sql);
     }
 
 
