@@ -35,7 +35,7 @@ class RolePersRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $personne_id=$personne->getId();
         $sql = '
-          DELETE FROM rolepers WHERE personne_id='.$personne_id.';DELETE FROM vote where personne_id='.$personne_id.';DELETE FROM Follow where personne_id_id='.$personne_id;
+          DELETE FROM rolepers WHERE personne_id='.$personne_id.';DELETE FROM vote where personne_id='.$personne_id.';DELETE FROM Follow where personne_id_id='.$personne_id.';DELETE FROM commentaire where personne_id_id='.$personne_id.';';
           $conn->fetchAllAssociative($sql);
         $sql2='DELETE FROM projet WHERE personne_id_id='.$personne_id;
         $result=$conn->fetchAllAssociative($sql2);
