@@ -64,3 +64,20 @@ DirectoryIndex index.php
         # RedirectTemp cannot be used instead
     </IfModule>
 </IfModule>
+
+######################
+## Handling Options for the CORS
+     RewriteCond %{REQUEST_METHOD} OPTIONS
+     RewriteRule ^(.*)$ $1 [L,R=204]
+
+###################
+## Add custom headers
+
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+       # Always set these headers for CORS.
+    Header always set Access-Control-Max-Age 1728000
+    Header always set Access-Control-Allow-Origin: "*"
+    Header always set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+    Header always set Access-Control-Allow-Headers: "*"
+    Header always set Access-Control-Allow-Credentials true
