@@ -34,6 +34,16 @@ class Contact
      */
     private $creation_date;
 
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $accept_personne1;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $accept_personne2;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +81,30 @@ class Contact
     public function setCreationDate(?\DateTimeInterface $creation_date): self
     {
         $this->creation_date = $creation_date;
+
+        return $this;
+    }
+
+    public function getAcceptPersonne1(): ?int
+    {
+        return $this->accept_personne1;
+    }
+
+    public function setAcceptPersonne1(int $accept_personne1): self
+    {
+        $this->accept_personne1 = $accept_personne1;
+
+        return $this;
+    }
+
+    public function getAcceptPersonne2(): ?int
+    {
+        return $this->accept_personne2;
+    }
+
+    public function setAcceptPersonne2(int $accept_personne2): self
+    {
+        $this->accept_personne2 = $accept_personne2;
 
         return $this;
     }
