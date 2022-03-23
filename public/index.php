@@ -15,6 +15,7 @@ if ($_SERVER['APP_DEBUG']) {
 }
 header('Access-Control-Allow-Headers:*');
 header('Access-Control-Allow-Credentials:true');
+header('Access-Control-Allow-Methods:*');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     die();
 }
