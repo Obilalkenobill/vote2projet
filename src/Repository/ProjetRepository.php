@@ -59,10 +59,12 @@ class ProjetRepository extends ServiceEntityRepository
     public function findProjetByUserRPO($personne_id)
     {
         $conn = $this->getEntityManager()->getConnection();
-        $sql = '
-        SELECT *
-        FROM projet
-        WHERE personne_id_id='.$personne_id;
+        $sql = 'SELECT 
+        p.id,p.personne_id_id,p.titre,p.nbr_vote_pour,p.nbr_vote_null,p.nbr_vote_contre, p.descriptif,p.date_adm,p.date_rej,p.creation_date,v.id as vote_id,v.bull_vote,v.a_vote 
+        FROM projet p
+        LEFT JOIN vote v 
+        on p.id=v.projet_id 
+        WHERE p.personne_id_id='.$personne_id;
         // returns an array of arrays (i.e. a raw data set)
         return $conn->fetchAllAssociative($sql);
     }
@@ -70,10 +72,13 @@ class ProjetRepository extends ServiceEntityRepository
     public function findProjetByFollower($personne_id)
     {
         $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT *
+        $sql = 'SELECT p.id,p.personne_id_id,p.titre,p.nbr_vote_pour,p.nbr_vote_null,p.nbr_vote_contre, p.descriptif,p.date_adm,p.date_rej,p.creation_date,v.id as vote_id,v.bull_vote,v.a_vote 
         FROM projet p  
         INNER JOIN Follow f  
-        ON p.id = f.projet_id_id  
+        ON p.id = f.projet_id_id 
+        LEFT JOIN vote v 
+        on p.id=v.projet_id 
+        AND v.personne_id='.$personne_id.'
         WHERE f.personne_id_id='.$personne_id;
         // returns an array of arrays (i.e. a raw data set)
         return $conn->fetchAllAssociative($sql);
@@ -111,9 +116,9 @@ class ProjetRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $conn->fetchAllAssociative($sql);
     }
-    public function findAllbis(){
+    public function findAllbis($personne_id){
         $conn = $this->getEntityManager()->getConnection();
-        $sql='SELECT * FROM projet';
+        $sql='SELECT p.id,p.personne_id_id,p.titre,p.nbr_vote_pour,p.nbr_vote_null,p.nbr_vote_contre, p.descriptif,p.date_adm,p.date_rej,p.creation_date,v.id as vote_id,v.bull_vote,v.a_vote FROM projet p LEFT JOIN vote v on p.id=v.projet_id AND v.personne_id='.$personne_id.';';
       
   
           // returns an array of arrays (i.e. a raw data set)
