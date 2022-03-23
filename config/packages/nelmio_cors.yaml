@@ -18,7 +18,7 @@ nelmio_cors:
                 max_age: 3600
             '^/':
                 origin_regex: true
-                allow_origin: ['^http://localhost:[0-9]+',''https://ricbe.herokuapp.com/','http://ricbe.herokuapp.com/','^https?://.*?$','^http?://.*?$']
+                allow_origin: ['^http://localhost:[0-9]+','https://ricbe.herokuapp.com/','http://ricbe.herokuapp.com/','^https?://.*?$','^http?://.*?$']
                 allow_headers: ['*','access-control-allow-origin']
                 allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
                 max_age: 3600
