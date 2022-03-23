@@ -11,8 +11,8 @@ require dirname(__DIR__).'/vendor/autoload.php';
 if ($_SERVER['APP_DEBUG']) {
     header('Access-Control-Allow-Origin:'.rtrim($_SERVER['HTTP_REFERER'], '/'));
 } else {
-    header('Access-Control-Allow-Origin: https://ricbe.herokuapp.com/');
-    header('Access-Control-Allow-Origin: https://ricbe.herokuapp.com/');
+    header('Access-Control-Allow-Origin: https://ricbe.herokuapp.com');
+    header('Access-Control-Allow-Origin: http://ricbe.herokuapp.com');
 }
 header('Access-Control-Allow-Headers:*');
 header('Access-Control-Allow-Credentials:true');
