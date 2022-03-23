@@ -43,11 +43,12 @@ class ProjetController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Get (path="/readAll",name="api_projet_readAll")
+     * @Rest\Get (path="/readAll/{personne}",name="api_projet_readAll")
      * @Rest\View()
      */
-    public function readAll(ProjetRepository $repo){
-        return $this->view(["projets"=> $repo->findAllbis()]);
+    public function readAll(Personne $personne, ProjetRepository $repo){
+        $personne_id=$personne->getId();
+        return $this->view(["projets"=> $repo->findAllbis($personne_id)]);
     }
    /**
      * @Rest\Get (path="/{projet}",name="api_projet_getById")
