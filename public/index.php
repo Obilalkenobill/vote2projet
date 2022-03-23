@@ -8,11 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 require dirname(__DIR__).'/vendor/autoload.php';
 
 (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
-if ($_SERVER['APP_DEBUG']) {
-    header('Access-Control-Allow-Origin:'.rtrim($_SERVER['HTTP_REFERER'], '/'));
-} else {
-    header('Access-Control-Allow-Origin:*');
-}
+
+header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Headers:*');
 header('Access-Control-Allow-Credentials:true');
 header('Access-Control-Allow-Methods:*');
