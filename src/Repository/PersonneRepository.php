@@ -39,12 +39,11 @@ class PersonneRepository extends ServiceEntityRepository
                 AND (co.accept_personne1=1 OR co.accept_personne2=1) ) t
            WHERE t.id != 1; ';
       
-  $per=$conn->fetchAllAssociative($sql);
-  dump($per);
+
  
  
   // returns an array of arrays (i.e. a raw data set)
-          return $per;
+          return $conn->fetchAllAssociative($sql);;
     }
     public function add_contact($id1,$id2){
         $date=new \DateTime("now");
