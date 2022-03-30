@@ -37,7 +37,7 @@ class PersonneRepository extends ServiceEntityRepository
                 WHERE 
                 (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
                 AND (co.accept_personne1=1 OR co.accept_personne2=1) ) t
-           WHERE t.id != 1; ';
+           WHERE t.id != '.$id.';';
       
 
  
