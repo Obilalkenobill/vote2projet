@@ -93,7 +93,7 @@ return $personne;
 
     public function findAllbis($UserId){
         $conn = $this->getEntityManager()->getConnection();
-        $sql='SELECT p.id,p.nom,p.prenom,p.login,p.email,p.is_active,p.creation_date,p.is_verified,p.nn,c.accept_personne1,c.accept_personne2 FROM personne p  right JOIN contact c ON p.id=c.personne1_id_id OR p.id=c.personne2_id_id WHERE p.id !='.$UserId.';';
+        $sql='SELECT DISTINCT p.id,p.nom,p.prenom,p.login,p.email,p.is_active,p.creation_date,p.is_verified,p.nn,c.accept_personne1,c.accept_personne2 FROM personne p  LEFT JOIN contact c ON p.id=c.personne1_id_id OR p.id=c.personne2_id_id WHERE p.id !='.$UserId.';';
       
   
           // returns an array of arrays (i.e. a raw data set)
