@@ -2,25 +2,28 @@
 
 namespace App\Controller;
 
-use App\Entity\Personne;
+use Exception;
 use App\Entity\Role;
+use App\Entity\Personne;
 use App\Entity\RolePers;
 use App\Model\PersonneDTO;
 use FOS\RestBundle\View\View;
+use App\Repository\RoleRepository;
+use App\Repository\PersonneRepository;
+use App\Repository\RolePersRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Serializer\SerializerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use App\Repository\PersonneRepository;
-use App\Repository\RolePersRepository;
-use App\Repository\RoleRepository;
-use Exception;
-use Symfony\Component\HttpFoundation\Response;
 
 class PersonneController extends AbstractFOSRestController
 {
@@ -52,7 +55,45 @@ class PersonneController extends AbstractFOSRestController
     public function getAll(PersonneRepository $repo)
     {
         return $this->view([
-            "Personnes"=>$repo->findAllbis()
+            "Personnes"=>$repo->findAll()
+         ]);
+    }
+        /**
+     * @Rest\Get(path="/api/personne/contact/{UserId}", name="personne_getallbis")
+     * @Rest\View()
+     * @return View
+     */
+    public function getAllbis($UserId,PersonneRepository $repo)
+    {
+        return $this->view([
+            "Personnes"=>$repo->findAllbis($UserId)
+         ]);
+    }
+
+        
+    /**
+     * @Rest\Get(path="/api/personne/invitation/{id}", name="personne_get_invit")
+     * @Rest\View()
+     * @return View
+     */
+    public function getInvit_Perso($id, PersonneRepository $repo)
+    {
+
+        return $this->view([
+            "Personnes"=>$repo->find_Invit_perso($id)
+         ]);
+    }
+
+    /**
+     * @Rest\Put(path="/api/personne/invitation/{id1}/{id2}", name="personne_add_contact")
+     * @Rest\View()
+     * @return View
+     */
+    public function putAddContact($id1,$id2, PersonneRepository $repo)
+    {
+
+        return $this->view([
+            "Personnes"=>$repo->add_contact($id1,$id2)
          ]);
     }
       /**
@@ -172,10 +213,12 @@ class PersonneController extends AbstractFOSRestController
      * @return View
      */
     public function pathImageVerif(Request $req, EntityManagerInterface $em, PersonneRepository $repo) {
-
+        dump($req,$req->getContent());
+        $personne=$repo->findOneBy( [ 'id' => ( $req->request->get('UserId') ) ] );
         // if (sizeof($violations) > 0) {
         //     return $this->view(["errors" => $violations]);
         // }
+    //    dump($req->files->get('filephotoverif'));
        try{
        $filephotoverif=$req->files->get('filephotoverif');
        $filerectocarteid=$req->files->get('filerectocarteid');
@@ -183,8 +226,19 @@ class PersonneController extends AbstractFOSRestController
        }
        catch(Exception $ex)
        {
+           
        }
-           $personne=$repo->findOneBy( [ 'id' => ( $req->request->get('UserId') ) ] );
+    //    $json = str_replace('/[\x00-\x1F\x80-\xFF]/', '', $req->getCurrentRequest()->getContent());
+    //    $json= mb_convert_encoding($json, 'UTF-8', 'UTF-8');
+    //    $json1= mb_convert_encoding($req->getCurrentRequest()->getContent(), 'UTF-8', 'UTF-8');
+    //   $filephotoverif = $object = json_encode($json);
+    //    $object1 = json_encode($json1);
+    // $filephotoverif= json_decode($filephotoverif);
+    // $filephotoverif=$object= $serializer->deserialize($object, File::class,'json');
+    // // $filephotoverif=$filephotoverif->get('filephotoverif');
+    //    $filephotoverif=$serializer->deserialize($req->getContent()->getFile(), FileBag::class,'string');
+    //  $data = json_decode($req->getContent(),false);
+    //    dump(json_decode($req->getCurrentRequest()->getContent()));
         if( $filephotoverif!=null ){
             $bin=file_get_contents($filephotoverif->getPathname());
             $personne->setphotoverif($bin);
@@ -209,6 +263,7 @@ class PersonneController extends AbstractFOSRestController
             $em->persist($personne);
             $em->flush();
         }
+        
 
         if (empty($personne->getRolePers()) && $personne->getPhotoverif()!=null && $personne->getrectocarteid()!=null && $personne->getversocarteid()!=null)
         {
