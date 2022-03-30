@@ -19,7 +19,42 @@ class PersonneRepository extends ServiceEntityRepository
         parent::__construct($registry, Personne::class);
     }
 
-
+    public function find_Invit_perso($id){
+        $conn = $this->getEntityManager()->getConnection();
+        $sql='SELECT * FROM (
+        SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.accept_personne1,co.accept_personne2 
+                FROM    personne p
+                INNER JOIN contact co 
+                ON p.id=co.personne1_id_id
+                WHERE 
+                (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
+                AND (co.accept_personne1=1 OR co.accept_personne2=1)
+                UNION ALL
+                SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.accept_personne1,co.accept_personne2 
+                FROM    personne p
+                INNER JOIN contact co 
+                ON p.id=co.personne2_id_id
+                WHERE 
+                (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
+                AND (co.accept_personne1=1 OR co.accept_personne2=1) ) t
+           WHERE t.id != 1; ';
+      
+  $per=$conn->fetchAllAssociative($sql);
+  dump($per);
+ 
+ 
+  // returns an array of arrays (i.e. a raw data set)
+          return $per;
+    }
+    public function add_contact($id1,$id2){
+        $date=new \DateTime("now");
+        $conn = $this->getEntityManager()->getConnection();
+        $sql='INSERT INTO contact(personne1_id_id,personne2_id_id,accept_personne1)
+        VALUES
+        ('.$id1.','.$id2.',1 );';
+          // returns an array of arrays (i.e. a raw data set)
+          return $conn->fetchAllAssociative($sql);
+    }
     public function setRole($personne_id,$role_id)
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -57,9 +92,9 @@ return $personne;
     }
 
 
-    public function findAllbis(){
+    public function findAllbis($UserId){
         $conn = $this->getEntityManager()->getConnection();
-        $sql='SELECT id,nom,prenom,login,email,is_active,creation_date,is_verified,nn FROM personne';
+        $sql='SELECT p.id,p.nom,p.prenom,p.login,p.email,p.is_active,p.creation_date,p.is_verified,p.nn,c.accept_personne1,c.accept_personne2 FROM personne p  right JOIN contact c ON p.id=c.personne1_id_id OR p.id=c.personne2_id_id WHERE p.id !='.$UserId.';';
       
   
           // returns an array of arrays (i.e. a raw data set)
