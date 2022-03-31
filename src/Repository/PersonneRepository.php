@@ -22,7 +22,7 @@ class PersonneRepository extends ServiceEntityRepository
     public function find_Invit_perso($id){
         $conn = $this->getEntityManager()->getConnection();
         $sql='SELECT * FROM (
-        SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.accept_personne1,co.accept_personne2 
+        SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
                 FROM    personne p
                 INNER JOIN contact co 
                 ON p.id=co.personne1_id_id
@@ -30,14 +30,14 @@ class PersonneRepository extends ServiceEntityRepository
                 (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
                 AND (co.accept_personne1=1 OR co.accept_personne2=1)
                 UNION ALL
-                SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.accept_personne1,co.accept_personne2 
+                SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
                 FROM    personne p
                 INNER JOIN contact co 
                 ON p.id=co.personne2_id_id
                 WHERE 
                 (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
                 AND (co.accept_personne1=1 OR co.accept_personne2=1) ) t
-           WHERE t.id != '.$id.';';
+           WHERE t.id !='.$id.';';
       
 
  
@@ -93,7 +93,7 @@ return $personne;
 
     public function findAllbis($UserId){
         $conn = $this->getEntityManager()->getConnection();
-        $sql='SELECT DISTINCT p.id,p.nom,p.prenom,p.login,p.email,p.is_active,p.creation_date,p.is_verified,p.nn,c.accept_personne1,c.accept_personne2 FROM personne p  LEFT JOIN contact c ON p.id=c.personne1_id_id OR p.id=c.personne2_id_id WHERE p.id !='.$UserId.';';
+        $sql='SELECT DISTINCT p.id,p.nom,p.prenom,p.login,p.email,p.is_active,p.creation_date,p.is_verified,p.nn, c.personne1_id_id, c.personne2_id_id, c.accept_personne1, c.accept_personne2 FROM personne p  LEFT JOIN contact c ON p.id=c.personne1_id_id OR p.id=c.personne2_id_id WHERE p.id !='.$UserId.';';
       
   
           // returns an array of arrays (i.e. a raw data set)
