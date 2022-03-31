@@ -96,6 +96,55 @@ class PersonneController extends AbstractFOSRestController
             "Personnes"=>$repo->add_contact($id1,$id2)
          ]);
     }
+
+        /**
+     * @Rest\Put(path="/api/personne/invitation2/{id1}/{id2}", name="personne_add_contact2")
+     * @Rest\View()
+     * @return View
+     */
+    public function putAddContact2($id1,$id2, PersonneRepository $repo)
+    {
+
+        return $this->view([
+            "Personnes"=>$repo->add_contact2($id1,$id2)
+         ]);
+    }
+        /**
+     * @Rest\Put(path="/api/personne/invitation/accepter/{id1}/{id2}", name="personne_acc_invit")
+     * @Rest\View()
+     * @return View
+     */
+    public function accepter_invit($id1,$id2, PersonneRepository $repo)
+    {
+
+        return $this->view([
+            "Personnes"=>$repo->accepter_invit($id1,$id2)
+         ]);
+    }
+        /**
+     * @Rest\Put(path="/api/personne/invitation/annuler/{id1}/{id2}", name="personne_ann_invit")
+     * @Rest\View()
+     * @return View
+     */
+    public function annuler_invit($id1,$id2, PersonneRepository $repo)
+    {
+
+        return $this->view([
+            "Personnes"=>$repo->annuler_invit($id1,$id2)
+         ]);
+    }
+        /**
+     * @Rest\Put(path="/api/personne/invitation/refuser/{id1}/{id2}", name="personne_ref_invit")
+     * @Rest\View()
+     * @return View
+     */
+    public function refuser_invit($id1,$id2, PersonneRepository $repo)
+    {
+
+        return $this->view([
+            "Personnes"=>$repo->refuser_invit($id1,$id2)
+         ]);
+    }
       /**
      * @Rest\Put("api/users/validate/{personne}", name="app_activationUser")
      */
