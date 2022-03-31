@@ -28,7 +28,7 @@ class PersonneRepository extends ServiceEntityRepository
                 ON p.id=co.personne1_id_id
                 WHERE 
                 (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
-                AND (co.accept_personne1=1 OR co.accept_personne2=1)
+                AND (co.accept_personne1=1 XOR co.accept_personne2=1)
                 UNION ALL
                 SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
                 FROM    personne p
@@ -36,7 +36,7 @@ class PersonneRepository extends ServiceEntityRepository
                 ON p.id=co.personne2_id_id
                 WHERE 
                 (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
-                AND (co.accept_personne1=1 OR co.accept_personne2=1) ) t
+                AND (co.accept_personne1=1 XOR co.accept_personne2=1) ) t
            WHERE t.id !='.$id.';';
       
 
@@ -45,12 +45,43 @@ class PersonneRepository extends ServiceEntityRepository
   // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);;
     }
+    public function accepter_invit($id1,$id2){
+        $date=new \DateTime("now");
+        $conn = $this->getEntityManager()->getConnection();
+        $sql='UPDATE contact SET accept_personne2=1 WHERE personne1_id_id='.$id1.' AND personne2_id_id='.$id2.';';
+          // returns an array of arrays (i.e. a raw data set)
+          return $conn->fetchAllAssociative($sql);
+    }
+    // UPDATE commentaire SET commentaire ="'.$commentaire.'",creation_date="'.$creation_date.'" WHERE  id='.$id.';';
+    public function annuler_invit($id1,$id2){
+        $date=new \DateTime("now");
+        $conn = $this->getEntityManager()->getConnection();
+        $sql='UPDATE contact SET accept_personne1=0 WHERE personne1_id_id='.$id1.' AND personne2_id_id='.$id2.';';
+          // returns an array of arrays (i.e. a raw data set)
+          return $conn->fetchAllAssociative($sql);
+    }
+    public function refuser_invit($id1,$id2){
+        $date=new \DateTime("now");
+        $conn = $this->getEntityManager()->getConnection();
+        $sql='UPDATE contact SET accept_personne1=0 WHERE personne1_id_id='.$id1.' AND personne2_id_id='.$id2.';';
+          // returns an array of arrays (i.e. a raw data set)
+          return $conn->fetchAllAssociative($sql);
+    }
+
     public function add_contact($id1,$id2){
         $date=new \DateTime("now");
         $conn = $this->getEntityManager()->getConnection();
         $sql='INSERT INTO contact(personne1_id_id,personne2_id_id,accept_personne1)
         VALUES
         ('.$id1.','.$id2.',1 );';
+          // returns an array of arrays (i.e. a raw data set)
+          return $conn->fetchAllAssociative($sql);
+    }
+
+    public function add_contact2($id1,$id2){
+        $date=new \DateTime("now");
+        $conn = $this->getEntityManager()->getConnection();
+        $sql='UPDATE contact SET accept_personne1=1 WHERE personne1_id_id='.$id1.' AND personne2_id_id='.$id2.';';
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);
     }
@@ -93,7 +124,12 @@ return $personne;
 
     public function findAllbis($UserId){
         $conn = $this->getEntityManager()->getConnection();
-        $sql='SELECT DISTINCT p.id,p.nom,p.prenom,p.login,p.email,p.is_active,p.creation_date,p.is_verified,p.nn, c.personne1_id_id, c.personne2_id_id, c.accept_personne1, c.accept_personne2 FROM personne p  LEFT JOIN contact c ON p.id=c.personne1_id_id OR p.id=c.personne2_id_id WHERE p.id !='.$UserId.';';
+        $sql='SELECT DISTINCT * FROM (
+            SELECT DISTINCT p.id,p.nom,p.prenom,p.login,p.email,p.is_active,p.creation_date,p.is_verified,p.nn,
+             c.personne1_id_id, c.personne2_id_id, c.accept_personne1, c.accept_personne2 
+             FROM personne p 
+             left JOIN contact c ON (p.id=c.personne1_id_id OR p.id=c.personne2_id_id) AND (c.personne1_id_id ='.$UserId.' OR c.personne2_id_id='.$UserId.' ) ) p 
+             WHERE p.id !='.$UserId.'; ';
       
   
           // returns an array of arrays (i.e. a raw data set)
