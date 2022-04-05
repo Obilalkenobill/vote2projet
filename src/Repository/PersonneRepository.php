@@ -38,13 +38,34 @@ class PersonneRepository extends ServiceEntityRepository
                 (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
                 AND (co.accept_personne1=1 XOR co.accept_personne2=1) ) t
            WHERE t.id !='.$id.';';
-      
-
- 
- 
   // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);;
     }
+
+    public function find_ami($id){
+        $conn = $this->getEntityManager()->getConnection();
+        $sql='SELECT * FROM (
+        SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
+                FROM    personne p
+                INNER JOIN contact co 
+                ON p.id=co.personne1_id_id
+                WHERE 
+                (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
+                AND (co.accept_personne1=1 AND co.accept_personne2=1)
+                UNION ALL
+                SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
+                FROM personne p
+                INNER JOIN contact co 
+                ON p.id=co.personne2_id_id
+                WHERE 
+                (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
+                AND (co.accept_personne1=1 AND co.accept_personne2=1) ) t
+           WHERE t.id !='.$id.';';
+  // returns an array of arrays (i.e. a raw data set)
+          return $conn->fetchAllAssociative($sql);;
+    }
+
+
     public function accepter_invit($id1,$id2){
         $date=new \DateTime("now");
         $conn = $this->getEntityManager()->getConnection();
@@ -52,18 +73,12 @@ class PersonneRepository extends ServiceEntityRepository
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);
     }
-    // UPDATE commentaire SET commentaire ="'.$commentaire.'",creation_date="'.$creation_date.'" WHERE  id='.$id.';';
-    public function annuler_invit($id1,$id2){
+
+
+    public function retirer_ami($id1,$id2){
         $date=new \DateTime("now");
         $conn = $this->getEntityManager()->getConnection();
-        $sql='UPDATE contact SET accept_personne1=0 WHERE personne1_id_id='.$id1.' AND personne2_id_id='.$id2.';';
-          // returns an array of arrays (i.e. a raw data set)
-          return $conn->fetchAllAssociative($sql);
-    }
-    public function refuser_invit($id1,$id2){
-        $date=new \DateTime("now");
-        $conn = $this->getEntityManager()->getConnection();
-        $sql='UPDATE contact SET accept_personne1=0 WHERE personne1_id_id='.$id1.' AND personne2_id_id='.$id2.';';
+        $sql='DELETE FROM contact WHERE personne1_id_id='.$id1.' AND personne2_id_id='.$id2.';';
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);
     }
@@ -78,13 +93,7 @@ class PersonneRepository extends ServiceEntityRepository
           return $conn->fetchAllAssociative($sql);
     }
 
-    public function add_contact2($id1,$id2){
-        $date=new \DateTime("now");
-        $conn = $this->getEntityManager()->getConnection();
-        $sql='UPDATE contact SET accept_personne1=1 WHERE personne1_id_id='.$id1.' AND personne2_id_id='.$id2.';';
-          // returns an array of arrays (i.e. a raw data set)
-          return $conn->fetchAllAssociative($sql);
-    }
+
     public function setRole($personne_id,$role_id)
     {
         $conn = $this->getEntityManager()->getConnection();
