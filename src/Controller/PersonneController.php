@@ -84,6 +84,20 @@ class PersonneController extends AbstractFOSRestController
          ]);
     }
 
+            
+    /**
+     * @Rest\Get(path="/api/personne/ami/{id}", name="personne_get_ami")
+     * @Rest\View()
+     * @return View
+     */
+    public function getAmi($id, PersonneRepository $repo)
+    {
+
+        return $this->view([
+            "Personnes"=>$repo->find_ami($id)
+         ]);
+    }
+
     /**
      * @Rest\Put(path="/api/personne/invitation/{id1}/{id2}", name="personne_add_contact")
      * @Rest\View()
@@ -96,19 +110,23 @@ class PersonneController extends AbstractFOSRestController
             "Personnes"=>$repo->add_contact($id1,$id2)
          ]);
     }
+    
 
-        /**
-     * @Rest\Put(path="/api/personne/invitation2/{id1}/{id2}", name="personne_add_contact2")
+       /**
+     * @Rest\Put(path="/api/personne/contact/retirer/{id1}/{id2}", name="personne_retirer_ami")
      * @Rest\View()
      * @return View
      */
-    public function putAddContact2($id1,$id2, PersonneRepository $repo)
+    public function retirer_ami($id1,$id2, PersonneRepository $repo)
     {
 
         return $this->view([
-            "Personnes"=>$repo->add_contact2($id1,$id2)
+            "Personnes"=>$repo->retirer_ami($id1,$id2)
          ]);
     }
+
+
+
         /**
      * @Rest\Put(path="/api/personne/invitation/accepter/{id1}/{id2}", name="personne_acc_invit")
      * @Rest\View()
@@ -121,30 +139,8 @@ class PersonneController extends AbstractFOSRestController
             "Personnes"=>$repo->accepter_invit($id1,$id2)
          ]);
     }
-        /**
-     * @Rest\Put(path="/api/personne/invitation/annuler/{id1}/{id2}", name="personne_ann_invit")
-     * @Rest\View()
-     * @return View
-     */
-    public function annuler_invit($id1,$id2, PersonneRepository $repo)
-    {
 
-        return $this->view([
-            "Personnes"=>$repo->annuler_invit($id1,$id2)
-         ]);
-    }
-        /**
-     * @Rest\Put(path="/api/personne/invitation/refuser/{id1}/{id2}", name="personne_ref_invit")
-     * @Rest\View()
-     * @return View
-     */
-    public function refuser_invit($id1,$id2, PersonneRepository $repo)
-    {
 
-        return $this->view([
-            "Personnes"=>$repo->refuser_invit($id1,$id2)
-         ]);
-    }
       /**
      * @Rest\Put("api/users/validate/{personne}", name="app_activationUser")
      */
