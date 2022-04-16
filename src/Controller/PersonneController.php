@@ -262,6 +262,21 @@ class PersonneController extends AbstractFOSRestController
            ]);
       
     }
+
+       /**
+     * @Rest\Get(path="/api/personne/voirMessPartic/{groupid}", name="personne_get_mess_part")
+     * @Rest\View()
+     * @param EntityManagerInterface $em
+     * @param Request $req
+     * @return View
+     */
+    public function getMessPartic($groupid, ReceptionRepository $repo) {
+$ok=$repo->selecMessPartic($groupid);
+        return $this->view([
+         $repo->selecMessPartic($groupid)
+         ]);
+    
+  }
 /**
      * @Rest\Post(path="/api/personne/creategroup/{nom_groupe}", name="personne_create_group")
      * @Rest\View()
@@ -269,7 +284,7 @@ class PersonneController extends AbstractFOSRestController
      * @param Request $req
      * @return View
      */
-    public function createGroup($nom_groupe,Request $req, EntityManagerInterface $em, ReceptionRepository $repo) {
+    public function createGroup($nom_groupe,Request $req, ReceptionRepository $repo) {
         $tab=[];
         $i=0;
         while($req->request->get($i)!= null ) {
