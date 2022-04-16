@@ -75,9 +75,7 @@ public function selectGroupMessage($UserId){
                 ON g_p.group_group_id_id = g_g.id 
                 JOIN personne p
                 ON p.id = g_p.personne_id_id
-                JOIN
-                (SELECT gp.group_group_id_id 
-                FROM group_pers gp WHERE gp.personne_id_id='.$UserId.') t2 ON t2.group_group_id_id=g_p.group_group_id_id';
+               WHERE p.id=3 ';
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql1);
     }
