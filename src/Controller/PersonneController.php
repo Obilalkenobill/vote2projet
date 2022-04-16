@@ -272,7 +272,6 @@ class PersonneController extends AbstractFOSRestController
     public function createGroup($nom_groupe,Request $req, EntityManagerInterface $em, ReceptionRepository $repo) {
         $tab=[];
         $i=0;
-        dump($req->request);
         while($req->request->get($i)!= null ) {
             array_push($tab,$req->request->get($i));
             $i++;
