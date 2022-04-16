@@ -19,6 +19,20 @@ class ReceptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Reception::class);
     }
 
+        public function   selecMessPartic($groupid){
+
+         
+            $conn = $this->getEntityManager()->getConnection();
+
+            $sql='SELECT DISTINCT p.id,p.login,g_g.id AS group_group_id_id FROM group_group g_g JOIN group_pers g_p ON g_g.id=g_p.group_group_id_id JOIN personne p ON 
+            p.id=g_p.personne_id_id WHERE g_p.group_group_id_id='.$groupid.';';
+    
+   return  $conn->fetchAllAssociative($sql);
+
+             }
+    
+             
+         
 
          public function insertGROUP($nom_groupe,$UserIds){
 
@@ -68,13 +82,13 @@ public function selectGroupMessage($UserId){
         // JOIN
         // (SELECT gp.group_group_id_id 
         // FROM group_pers gp WHERE gp.personne_id_id='.$UserId.') t2 ON t2.group_group_id_id=g_p.group_group_id_id';
-                $sql1='SELECT g_g.name ,g_g.id 
+                $sql1='SELECT  DISTINCT g_g.name ,g_g.id 
                 FROM group_group g_g  
                 JOIN group_pers g_p 
                 ON g_p.group_group_id_id = g_g.id 
                 JOIN personne p
                 ON p.id = g_p.personne_id_id
-               WHERE p.id=3 ';
+               WHERE p.id='.$UserId.' ; ';
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql1);
     }
