@@ -33,7 +33,6 @@ class ReceptionRepository extends ServiceEntityRepository
                         }   
                 
                     $sql_final=$sql.$sql2.$sql3;
-                    dump($sql_final);
                     $conn->fetchAllAssociative($sql_final);
          }
 
