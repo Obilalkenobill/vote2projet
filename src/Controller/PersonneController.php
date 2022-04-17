@@ -287,12 +287,15 @@ $ok=$repo->selecMessPartic($groupid);
     public function createGroup($nom_groupe,Request $req, ReceptionRepository $repo) {
         $tab=[];
         $i=0;
+        $user_init=$req->request->get("pers_init");
+        dump($user_init);
         while($req->request->get($i)!= null ) {
             array_push($tab,$req->request->get($i));
             $i++;
           }
+
           return $this->view([
-            $repo->insertGroup($nom_groupe,$tab)
+            $repo->insertGroup($nom_groupe,$tab,$user_init)
            ]);
     
     }
