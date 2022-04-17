@@ -22,6 +22,12 @@ class GroupGroup
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=personne::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $pers_init_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +41,18 @@ class GroupGroup
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPersInitId(): ?personne
+    {
+        return $this->pers_init_id;
+    }
+
+    public function setPersInitId(?personne $pers_init_id): self
+    {
+        $this->pers_init_id = $pers_init_id;
 
         return $this;
     }
