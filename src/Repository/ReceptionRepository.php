@@ -34,18 +34,19 @@ class ReceptionRepository extends ServiceEntityRepository
              
          
 
-         public function insertGROUP($nom_groupe,$UserIds){
+         public function insertGROUP($nom_groupe,$UserIds,$user_init){
 
          
                     $conn = $this->getEntityManager()->getConnection();
-                    $sql='INSERT INTO group_group(name) VALUES ( "'.$nom_groupe.'" );';
+                    $sql='INSERT INTO group_group(name,pers_init_id_id) VALUES ( "'.$nom_groupe.'",'.$user_init.' );';
                     $sql2='SET @id_group = LAST_INSERT_ID();';
                     $sql3="";
                         for ($i=0; $i < sizeof($UserIds) ; $i++) { 
                             $sql3=$sql3.' INSERT INTO group_pers (group_group_id_id,personne_id_id) 
                             VALUES (@id_group, '.$UserIds[$i].') ; ';
                         }   
-                
+                        $sql3=$sql3.' INSERT INTO group_pers (group_group_id_id,personne_id_id) 
+                        VALUES (@id_group, '.$user_init.') ; ';
                     $sql_final=$sql.$sql2.$sql3;
                     $conn->fetchAllAssociative($sql_final);
          }
@@ -82,7 +83,7 @@ public function selectGroupMessage($UserId){
         // JOIN
         // (SELECT gp.group_group_id_id 
         // FROM group_pers gp WHERE gp.personne_id_id='.$UserId.') t2 ON t2.group_group_id_id=g_p.group_group_id_id';
-                $sql1='SELECT  DISTINCT g_g.name ,g_g.id 
+                $sql1='SELECT  DISTINCT g_g.name ,g_g.id,g_g.pers_init_id_id
                 FROM group_group g_g  
                 JOIN group_pers g_p 
                 ON g_p.group_group_id_id = g_g.id 
