@@ -11,7 +11,7 @@ use FOS\RestBundle\View\View;
 use App\Repository\RoleRepository;
 use App\Repository\PersonneRepository;
 use App\Repository\RolePersRepository;
-use App\Repository\ReceptionRepository;
+use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -155,7 +155,24 @@ class PersonneController extends AbstractFOSRestController
                 'activate',Response::HTTP_ACCEPTED
              ]);
         }
-
+      /**
+     * @Rest\Put("api/users/setOnline/{personne}/{status}", name="app_set_is_on_lineUser")
+     */
+    public function setIsOnline (Personne $personne,$status){
+        if($status == true){
+            $personne->setIsOnline(1);
+        }
+        else if($status == false){
+            $personne->setIsOnline(0);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($personne);
+        $em->flush();
+        //RedirectResponse
+        return $this->view([
+            'activate',Response::HTTP_ACCEPTED
+         ]);
+    }
       /**
      * @Rest\Get(path="/api/users/name/{login}", name="personne_getbylogin")
      */
@@ -248,7 +265,31 @@ class PersonneController extends AbstractFOSRestController
              ]);
         }    
     }
-   
+
+        /**
+     * @Rest\Delete(path="/api/personne/groupes/retirer_part/{user_id}/{group_act_id}", name="delete_personne_in_group")
+     */
+    public function deletePartInGroup($user_id,$group_act_id, MessageRepository $repo)
+    {
+  
+       $repo->delete_user_in_group($user_id,$group_act_id);
+       return $this->view([
+           'deleted',Response::HTTP_ACCEPTED
+         ]);
+    }
+
+     /**
+     * @Rest\Put(path="/api/personne/groupes/ajouter_part/{user_id}/{group_act_id}", name="ajouter_personne_in_group")
+     */
+    public function ajouterPartInGroup($user_id,$group_act_id, MessageRepository $repo)
+    {
+  
+       $repo->ajouter_user_in_group($user_id,$group_act_id);
+       return $this->view([
+           'deleted',Response::HTTP_ACCEPTED
+         ]);
+    }
+
    /**
      * @Rest\Get(path="/api/personne/group/{userid}", name="personne_get_group")
      * @Rest\View()
@@ -256,7 +297,7 @@ class PersonneController extends AbstractFOSRestController
      * @param Request $req
      * @return View
      */
-    public function getGroup($userid,Request $req, EntityManagerInterface $em, ReceptionRepository $repo) {
+    public function getGroup($userid,Request $req, EntityManagerInterface $em, MessageRepository $repo) {
           return $this->view([
            $repo->selectGroupMessage($userid)
            ]);
@@ -270,7 +311,7 @@ class PersonneController extends AbstractFOSRestController
      * @param Request $req
      * @return View
      */
-    public function getMessPartic($groupid, ReceptionRepository $repo) {
+    public function getMessPartic($groupid, MessageRepository $repo) {
 $ok=$repo->selecMessPartic($groupid);
         return $this->view([
          $repo->selecMessPartic($groupid)
@@ -284,7 +325,7 @@ $ok=$repo->selecMessPartic($groupid);
      * @param Request $req
      * @return View
      */
-    public function createGroup($nom_groupe,Request $req, ReceptionRepository $repo) {
+    public function createGroup($nom_groupe,Request $req, MessageRepository $repo) {
         $tab=[];
         $i=0;
         $user_init=$req->request->get("pers_init");

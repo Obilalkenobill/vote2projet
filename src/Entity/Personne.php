@@ -93,10 +93,7 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $messages;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Reception::class, mappedBy="destinataire_s", orphanRemoval=true)
-     */
-    private $receptions;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Projet::class, mappedBy="personne_id")
@@ -225,6 +222,11 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $fileversocarteid;
 
+    /**
+     * @ORM\Column(type="smallint",options={"default" : 0})
+     */
+    private $is_on_line;
+
   
     public function replaceBlob(){
         $this->photoverif=$this->getphotoverif64();
@@ -277,7 +279,6 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         $this->adresse_id = new ArrayCollection();
         $this->habites = new ArrayCollection();
         $this->messages = new ArrayCollection();
-        $this->receptions = new ArrayCollection();
         $this->projets = new ArrayCollection();
         $this->signalProjets = new ArrayCollection();
         $this->votes = new ArrayCollection();
@@ -443,35 +444,6 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Reception[]
-     */
-    public function getReceptions(): Collection
-    {
-        return $this->receptions;
-    }
-
-    public function addReception(Reception $reception): self
-    {
-        if (!$this->receptions->contains($reception)) {
-            $this->receptions[] = $reception;
-            $reception->setDestinataireS($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReception(Reception $reception): self
-    {
-        if ($this->receptions->removeElement($reception)) {
-            // set the owning side to null (unless already changed)
-            if ($reception->getDestinataireS() === $this) {
-                $reception->setDestinataireS(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Projet[]
@@ -947,5 +919,17 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
             $this->filephotoverif = $filephotoverif;
 
             return $this;
+      }
+
+      public function getIsOnLine(): ?int
+      {
+          return $this->is_on_line;
+      }
+
+      public function setIsOnLine(int $is_on_line): self
+      {
+          $this->is_on_line = $is_on_line;
+
+          return $this;
       }
 }

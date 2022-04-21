@@ -89,17 +89,15 @@ class Message
      */
     private $creation_date;
 
+
     /**
-     * @ORM\OneToMany(targetEntity=Reception::class, mappedBy="message_id")
+     * @ORM\ManyToOne(targetEntity=GroupGroup::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $receptions;
+    private $group_group_id;
 
 
 
-    public function __construct()
-    {
-        $this->receptions = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -154,32 +152,14 @@ class Message
         return $this;
     }
 
-    /**
-     * @return Collection|Reception[]
-     */
-    public function getReceptions(): Collection
+    public function getGroupGroupId(): ?GroupGroup
     {
-        return $this->receptions;
+        return $this->group_group_id;
     }
 
-    public function addReception(Reception $reception): self
+    public function setGroupGroupId(?GroupGroup $group_group_id): self
     {
-        if (!$this->receptions->contains($reception)) {
-            $this->receptions[] = $reception;
-            $reception->setMessageId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReception(Reception $reception): self
-    {
-        if ($this->receptions->removeElement($reception)) {
-            // set the owning side to null (unless already changed)
-            if ($reception->getMessageId() === $this) {
-                $reception->setMessageId(null);
-            }
-        }
+        $this->group_group_id = $group_group_id;
 
         return $this;
     }

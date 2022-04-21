@@ -45,7 +45,7 @@ class PersonneRepository extends ServiceEntityRepository
     public function find_ami($id){
         $conn = $this->getEntityManager()->getConnection();
         $sql='SELECT * FROM (
-        SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
+        SELECT DISTINCT p.id,p.is_on_line,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
                 FROM    personne p
                 INNER JOIN contact co 
                 ON p.id=co.personne1_id_id
@@ -53,7 +53,7 @@ class PersonneRepository extends ServiceEntityRepository
                 (co.personne2_id_id='.$id.' OR co.personne1_id_id='.$id.') 
                 AND (co.accept_personne1=1 AND co.accept_personne2=1)
                 UNION ALL
-                SELECT DISTINCT p.id,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
+                SELECT DISTINCT p.id,p.is_on_line,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
                 FROM personne p
                 INNER JOIN contact co 
                 ON p.id=co.personne2_id_id
