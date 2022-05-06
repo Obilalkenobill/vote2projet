@@ -48,9 +48,22 @@ class MessageRepository extends ServiceEntityRepository
                         $sql3=$sql3.' INSERT INTO group_pers (group_group_id_id,personne_id_id) 
                         VALUES (@id_group, '.$user_init.') ; ';
                     $sql_final=$sql.$sql2.$sql3;
-                    $conn->fetchAllAssociative($sql_final);
+                   return $conn->fetchAllAssociative($sql_final);
          }
 
+
+         public function elire_admin_group($group_act_id,$user_id){
+            $conn = $this->getEntityManager()->getConnection();
+            $sql="UPDATE group_group
+SET pers_init_id_id=".$user_id." WHERE id=".$group_act_id.";";
+
+            return $conn->fetchAllAssociative($sql);
+        }
+
+
+    public function dissoudre_group($group_act_id){
+        return null;
+    }
          
     public function findAllMessage($UserIds){
    
@@ -76,9 +89,19 @@ class MessageRepository extends ServiceEntityRepository
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);
     }
+   public function insert_not_read($GroupGroupId){
+    $conn = $this->getEntityManager()->getConnection();
+    $sql='UPDATE group_pers SET message_read=0 WHERE group_group_id_id='.$GroupGroupId.';';
+      // returns an array of arrays (i.e. a raw data set)
+      return $conn->fetchAllAssociative($sql);
+   }
+ public function  findMessageByGroupId($Group_ID){
+    $conn = $this->getEntityManager()->getConnection();
+     $SQL= "SELECT m.message_txt,m.id,m.creation_date,m.group_group_id_id,p.login FROM message m JOIN personne p ON m.expediteur_id=p.id WHERE m.group_group_id_id=".$Group_ID." ;";
+     return $conn->fetchAllAssociative($SQL);
+ }
 
 public function selectGroupMessage($UserId){
-
 
         $conn = $this->getEntityManager()->getConnection();
         // $sql='SELECT g_p.personne_id_id AS id ,g_g.id AS group_group_id_id,
@@ -91,7 +114,7 @@ public function selectGroupMessage($UserId){
         // JOIN
         // (SELECT gp.group_group_id_id 
         // FROM group_pers gp WHERE gp.personne_id_id='.$UserId.') t2 ON t2.group_group_id_id=g_p.group_group_id_id';
-                $sql1='SELECT  DISTINCT g_g.name ,g_g.id,g_g.pers_init_id_id
+                $sql1='SELECT  DISTINCT g_g.name ,g_g.id,g_g.pers_init_id_id, g_p.message_read
                 FROM group_group g_g  
                 JOIN group_pers g_p 
                 ON g_p.group_group_id_id = g_g.id 

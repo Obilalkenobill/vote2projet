@@ -30,6 +30,11 @@ class GroupPers
      */
     private $group_group_id;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $message_read;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -56,6 +61,18 @@ class GroupPers
     public function setGroupGroupId(?GroupGroup $group_group_id): self
     {
         $this->group_group_id = $group_group_id;
+
+        return $this;
+    }
+
+    public function getMessageRead(): ?int
+    {
+        return $this->message_read;
+    }
+
+    public function setMessageRead(?int $message_read): self
+    {
+        $this->message_read = $message_read;
 
         return $this;
     }

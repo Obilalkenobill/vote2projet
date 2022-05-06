@@ -116,6 +116,7 @@ class SecurityController extends AbstractFOSRestController
         $personne->setPassword($hasher->hashPassword($personne, $personne->getPassword()));
         $personne->setIsActive(false);
         $personne->setIsVerified(false);
+        $personne->setIsOnline(false);
         $em = $this->getDoctrine()->getManager();
         $em->persist($personne);
         $em->flush();

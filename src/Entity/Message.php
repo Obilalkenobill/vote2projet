@@ -69,7 +69,7 @@ class Message
         $this->file = $file;
     }
     /**
-     * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="messages",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $expediteur;
@@ -91,10 +91,15 @@ class Message
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=GroupGroup::class)
+     * @ORM\ManyToOne(targetEntity=GroupGroup::class,cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $group_group_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Message::class)
+     */
+    private $message_ref;
 
 
 
@@ -160,6 +165,18 @@ class Message
     public function setGroupGroupId(?GroupGroup $group_group_id): self
     {
         $this->group_group_id = $group_group_id;
+
+        return $this;
+    }
+
+    public function getMessageRef(): ?self
+    {
+        return $this->message_ref;
+    }
+
+    public function setMessageRef(?self $message_ref): self
+    {
+        $this->message_ref = $message_ref;
 
         return $this;
     }

@@ -290,6 +290,31 @@ class PersonneController extends AbstractFOSRestController
          ]);
     }
 
+         /**
+     * @Rest\Put(path="/api/personne/groupes/delete/{group_act_id}", name="dissoudre_group")
+     */
+    public function dissoudreGroupe($group_act_id, MessageRepository $repo)
+    {
+  
+       $repo->dissoudre_group($group_act_id);
+       return $this->view([
+           'deleted',Response::HTTP_ACCEPTED
+         ]);
+    }
+
+    
+         /**
+     * @Rest\Put(path="/api/personne/groupes/elire/{group_act_id}/{user_id}", name="dissoudre_group")
+     */
+    public function elirGerantGroupe($group_act_id,$user_id, MessageRepository $repo)
+    {
+  
+       $repo->elire_admin_group($group_act_id,$user_id);
+       return $this->view([
+           'elu',Response::HTTP_ACCEPTED
+         ]);
+    }
+
    /**
      * @Rest\Get(path="/api/personne/group/{userid}", name="personne_get_group")
      * @Rest\View()
@@ -329,7 +354,7 @@ $ok=$repo->selecMessPartic($groupid);
         $tab=[];
         $i=0;
         $user_init=$req->request->get("pers_init");
-        dump($user_init);
+        dump($req->request,$user_init);
         while($req->request->get($i)!= null ) {
             array_push($tab,$req->request->get($i));
             $i++;
