@@ -29,6 +29,8 @@ class LoginListener
             $payload["roles"]=$roles;
 
             $payload["nom"]=$user->getNom();
+
+            $payload["login"]=$user->getLogin();
         }
         $event->setData($payload);
     }

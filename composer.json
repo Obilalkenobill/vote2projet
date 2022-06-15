@@ -50,6 +50,7 @@
         "symfony/property-access": "5.4.0",
         "symfony/property-info": "5.4.0",
         "symfony/proxy-manager-bridge": "5.4.0",
+        "symfony/rate-limiter": "6.1.*",
         "symfony/routing": "5.4.0",
         "symfony/security-bundle": "5.4.0",
         "symfony/security-core": "5.4.0",
@@ -71,13 +72,16 @@
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
         "symfony/debug-bundle": "^5.2",
-        "symfony/maker-bundle": "^1.38",
+        "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^6.0",
         "symfony/stopwatch": "^5.2",
         "symfony/var-dumper": "^5.2",
         "symfony/web-profiler-bundle": "^5.2"
     },
     "config": {
+        "platform": {
+            "php":"8.1.1"
+        },
         "optimize-autoloader": true,
         "preferred-install": {
             "*": "dist"
@@ -104,14 +108,6 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
-        "post-install-cmd":[
-            "@auto-scripts",
-            "chmod -R 777 public/",
-            "chmod -R 777 config/",
-            "mkdir -p config/jwt",
-            "openssl genrsa -out config/jwt/private.pem 4096",
-            "openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem"
-        ],
         "post-update-cmd": [
             "@auto-scripts"
         ]

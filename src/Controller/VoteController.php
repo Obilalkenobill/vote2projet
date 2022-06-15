@@ -28,7 +28,7 @@ class VoteController extends AbstractFOSRestController
      */
     public function vote(Vote $vote){
         $votebis=new Vote();
-        $votebis->setCreationDate(new \DateTime("now"));
+        $votebis->setCreationDate(new \DateTime(), new \DateTimeZone('Europe/Paris'));;
         $votebis->setPersonneId($vote->getPersonneId());
         $votebis->setAVote($vote->getAVote());
         $votebis->setBullVote($vote->getBullVote());

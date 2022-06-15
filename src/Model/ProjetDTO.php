@@ -109,7 +109,7 @@ class ProjetDTO
     public function toEntity(){
         $projet=new Projet();
         $projet->setTitre($this->titre)
-            ->setCreationDate(DateTime("now"))
+            ->setCreationDate(new \DateTime(), new \DateTimeZone('Europe/Paris'))
             ->setDescriptif($this->descriptif)
             ->setPersonneId($this->personne_id);
         return $projet;

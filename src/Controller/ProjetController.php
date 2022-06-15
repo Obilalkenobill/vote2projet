@@ -105,6 +105,7 @@ class ProjetController extends AbstractFOSRestController
     public function getFollowUserById(Follow $follow, FollowRepository $repo){
         $followReturn=$repo->findOneBy(['projet_id'=>$follow->getProjetId(),'personne_id'=>$follow->getPersonneId()]);
         $bool=true;
+        dump($followReturn);
         if($followReturn==[])
         {
           $bool=false;
@@ -120,7 +121,7 @@ class ProjetController extends AbstractFOSRestController
     public function addProjet(Request $req, Projet $projet, ProjetRepository $repo){
         $data = json_decode($req->getContent(), true);
 
-        $projet->setCreationDate(new \DateTime("now"));
+        $projet->setCreationDate(new \DateTime(), new \DateTimeZone('Europe/Paris'));;
         $repo->insert($data["titre"],$data["descriptif"],$data["personne_id_id"]);
         return $this->view(Response::HTTP_CREATED);
     }

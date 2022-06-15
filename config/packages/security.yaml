@@ -1,5 +1,4 @@
 security:
-    
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         default:
@@ -7,38 +6,36 @@ security:
                 class: App\Entity\Personne
                 property: email
 
-    password_hashers:
+    encoders:
         App\Entity\Personne:
             algorithm: auto
-
+    enable_authenticator_manager: true
     firewalls:
+        
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         register:
             pattern: ^/api/register
             stateless: true
-            anonymous: true
         findByEmail:
             pattern: ^/api/users/email/
             stateless: true
-            anonymous: true
         findByNN:
             pattern: ^/api/users/nn/
             stateless: true
-            anonymous: true
         findByLogin:
             pattern: ^/api/users/name/
             stateless: true
-            anonymous: true
         activate:
             pattern: ^/api/activate
             stateless: true
-            anonymous: true
         login:
             pattern: ^/api/login_check
             stateless: true
-            anonymous: true
+            login_throttling:
+                max_attempts: 7
+                interval: '19 minutes'
             json_login:
                 check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -70,6 +67,7 @@ security:
         - { path: ^/api/activate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/users/email/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/users/name/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

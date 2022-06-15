@@ -24,7 +24,7 @@ class MessageRepository extends ServiceEntityRepository
          
             $conn = $this->getEntityManager()->getConnection();
 
-            $sql='SELECT DISTINCT p.id,p.login,g_g.id AS group_group_id_id FROM group_group g_g JOIN group_pers g_p ON g_g.id=g_p.group_group_id_id JOIN personne p ON 
+            $sql='SELECT DISTINCT p.id,p.login,g_g.id AS group_group_id_id,p.is_on_line FROM group_group g_g JOIN group_pers g_p ON g_g.id=g_p.group_group_id_id JOIN personne p ON 
             p.id=g_p.personne_id_id WHERE g_p.group_group_id_id='.$groupid.';';
     
    return  $conn->fetchAllAssociative($sql);
@@ -55,24 +55,23 @@ class MessageRepository extends ServiceEntityRepository
          public function elire_admin_group($group_act_id,$user_id){
             $conn = $this->getEntityManager()->getConnection();
             $sql="UPDATE group_group
-SET pers_init_id_id=".$user_id." WHERE id=".$group_act_id.";";
+            SET pers_init_id_id=".$user_id." WHERE id=".$group_act_id.";";
 
             return $conn->fetchAllAssociative($sql);
         }
 
 
-    public function dissoudre_group($group_act_id){
-        return null;
-    }
+            public function dissoudre_group($group_act_id){
+                return null;
+            }
          
     public function findAllMessage($UserIds){
-   
-
         $conn = $this->getEntityManager()->getConnection();
         $sql='';
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);
     }
+
     public function delete_user_in_group($user_id,$group_act_id){
    
 
@@ -89,15 +88,17 @@ SET pers_init_id_id=".$user_id." WHERE id=".$group_act_id.";";
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);
     }
-   public function insert_not_read($GroupGroupId){
+   public function insert_not_read($GroupGroupId,$UserId){
     $conn = $this->getEntityManager()->getConnection();
-    $sql='UPDATE group_pers SET message_read=0 WHERE group_group_id_id='.$GroupGroupId.';';
+    $sql='UPDATE group_pers SET message_read=0 WHERE group_group_id_id='.$GroupGroupId.' AND NOT personne_id_id='.$UserId.' ;';
       // returns an array of arrays (i.e. a raw data set)
       return $conn->fetchAllAssociative($sql);
    }
- public function  findMessageByGroupId($Group_ID){
+ public function  findMessageByGroupId($Group_ID,$Personne_ID){
     $conn = $this->getEntityManager()->getConnection();
-     $SQL= "SELECT m.message_txt,m.id,m.creation_date,m.group_group_id_id,p.login FROM message m JOIN personne p ON m.expediteur_id=p.id WHERE m.group_group_id_id=".$Group_ID." ;";
+    $sql='UPDATE group_pers SET message_read=1 WHERE group_group_id_id='.$Group_ID.' AND personne_id_id='.$Personne_ID.';';
+    $conn->fetchAllAssociative($sql);
+     $SQL= "SELECT m.message_txt,m.id,m.creation_date,m.group_group_id_id,p.login,p.is_on_line FROM message m JOIN personne p ON m.expediteur_id=p.id WHERE m.group_group_id_id=".$Group_ID." ;";
      return $conn->fetchAllAssociative($SQL);
  }
 

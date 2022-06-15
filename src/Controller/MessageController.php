@@ -44,19 +44,19 @@ class MessageController extends AbstractFOSRestController
      */
     public function MessagePost(Request $req, Message $message, MessageRepository $repo, GroupPersRepository $group_pers_repo){
         $em = $this->getDoctrine()->getManager();
-     $message->setCreationDate(new \DateTime());
-     $repo->insert_not_read($message->getGroupGroupId()->getId());
+     $message->setCreationDate(new \DateTime(), new \DateTimeZone('Europe/Paris'));
+     $repo->insert_not_read($message->getGroupGroupId()->getId(),$message->getExpediteur()->getId());
      $em->persist($message);
      $em->flush();
     return $this->view();
     }
   
     /**
-     * @Rest\Get (path="api/personne/message_by_group/{Groupe_ID}",name="api_get_all_XAmessage")
+     * @Rest\Get (path="api/personne/message_by_group/{Groupe_ID}/{Personne_ID}",name="api_get_all_XAmessage")
      * @Rest\View()
      */
-    public function getMessageGroupe($Groupe_ID, MessageRepository $repo){
-        $Messages=$repo->findMessageByGroupId($Groupe_ID);
+    public function getMessageGroupe($Groupe_ID, $Personne_ID, MessageRepository $repo){
+        $Messages=$repo->findMessageByGroupId($Groupe_ID,$Personne_ID);
         return $this->view( [$Messages]);
     }
 }

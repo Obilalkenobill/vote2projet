@@ -3,27 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Personne;
-use App\Form\RegisterType;
 use App\Model\PersonneDTO;
-use FOS\RestBundle\View\View;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Validator\ConstraintViolationList;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SecurityController extends AbstractFOSRestController
@@ -83,7 +71,7 @@ class SecurityController extends AbstractFOSRestController
         if (isset($personnebis) && isset($personne) && $personnebis->getId()==$personne->getId())
         {
             $personne->setIsActive(true);
-            $personne->setCreationDate(new \DateTime("now"));
+            $personne->setCreationDate(new \DateTime(), new \DateTimeZone('Europe/Paris'));;
             $em = $this->getDoctrine()->getManager();
             $em->persist($personne);
             $em->flush();
@@ -120,12 +108,11 @@ class SecurityController extends AbstractFOSRestController
         $em = $this->getDoctrine()->getManager();
         $em->persist($personne);
         $em->flush();
-        $email=new Email() ;
-        $email->to($personne->getEmail());
-        $email->subject('Bienvenue sur le site du referendum à initiative citoyen');
-        $email->text('https://localhost:8000/api/activate/'.$personne->getSalt().'/'.$personne->getId().' Veuillez cliquer sur ce lien pour activer votre compte');
-        $email->html('<div><a href="https://localhost:8000/api/activate/'.$personne->getSalt().'/'.$personne->getId().'">Veuillez cliquer sur ce lien pour activer votre compte </a></div>');
-        $email->from("arbreplantebuisson@gmail.com");
+        $email=(new Email())
+        ->to($personne->getEmail())
+        ->subject('Bienvenue sur le site du referendum à initiative citoyen')
+        ->text('https://localhost:8000/api/activate/'.$personne->getSalt().'/'.$personne->getId().' Veuillez cliquer sur ce lien pour activer votre compte')
+        ->html('<div><a href="https://localhost:8000/api/activate/'.$personne->getSalt().'/'.$personne->getId().'">Veuillez cliquer sur ce lien pour activer votre compte </a></div>')->from("arbreplantebuisson@gmail.com");
         $mailer->send($email);
         return $this->view(["personne"=> $personne],Response::HTTP_CREATED);
     }
