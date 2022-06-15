@@ -17,7 +17,7 @@
         "lexik/jwt-authentication-bundle": "^2.11",
         "nelmio/cors-bundle": "^2.1",
         "phpdocumentor/reflection-docblock": "^5.2",
-        "sensio/framework-extra-bundle": "^5.1",
+        "sensio/framework-extra-bundle": "^6.2",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.4.0",
         "symfony/cache": "5.4.0",
@@ -107,7 +107,7 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd", 
-            "lexik:jwt:generate-keypair": "symfony-cmd"
+            "lexik:jwt:generate-keypair--overwrite`": "symfony-cmd"
         },
         "compile": [
             "@php bin/console lexik:jwt:generate-keypair --overwrite --quiet --env ev"

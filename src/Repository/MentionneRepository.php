@@ -6,7 +6,7 @@ use App\Entity\Mentionne;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method Mentionne|null find($id, $lockMode = null, $lockVersion = null)
  * @method Mentionne|null findOneBy(array $criteria, array $orderBy = null)
  * @method Mentionne[]    findAll()
@@ -19,7 +19,7 @@ class MentionneRepository extends ServiceEntityRepository
         parent::__construct($registry, Mentionne::class);
     }
 
-    // /***
+    // /**
     //  * @return Mentionne[] Returns an array of Mentionne objects
     //  **/
     /**

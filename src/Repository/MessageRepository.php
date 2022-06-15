@@ -6,7 +6,7 @@ use App\Entity\Message;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method Message|null find($id, $lockMode = null, $lockVersion = null)
  * @method Message|null findOneBy(array $criteria, array $orderBy = null)
  * @method Message[]    findAll()
@@ -125,7 +125,7 @@ public function selectGroupMessage($UserId){
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql1);
     }
-// /***
+// /**
     //  * @return Message[] Returns an array of Message objects
     //  **/
     /**

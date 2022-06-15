@@ -8,13 +8,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class PersonneDTO
 {
-    /***
+    /**
      * @var string
      * @Assert\Length(min=1, minMessage="Le nom doit avoir au moins un caractère !",max=20,maxMessage="Le nom ne peut pas dépasser 20 caractères !")
      **/
     private string $nom;
 
-    /***
+    /**
      * @return string
      **/
     public function getNom(): string
@@ -22,7 +22,7 @@ class PersonneDTO
         return $this->nom;
     }
 
-    /***
+    /**
      * @param string $nom
      * @return PersonneDTO
      **/
@@ -32,7 +32,7 @@ class PersonneDTO
         return $this;
     }
 
-    /***
+    /**
      * @return string
      **/
     public function getPrenom(): string
@@ -40,7 +40,7 @@ class PersonneDTO
         return $this->prenom;
     }
 
-    /***
+    /**
      * @param string $prenom
      * @return PersonneDTO
      **/
@@ -50,7 +50,7 @@ class PersonneDTO
         return $this;
     }
 
-    /***
+    /**
      * @return string
      **/
     public function getLogin(): string
@@ -58,7 +58,7 @@ class PersonneDTO
         return $this->login;
     }
 
-    /***
+    /**
      * @param string $login
      * @return PersonneDTO
      **/
@@ -68,7 +68,7 @@ class PersonneDTO
         return $this;
     }
 
-    /***
+    /**
      * @return string
      **/
     public function getEmail(): string
@@ -76,7 +76,7 @@ class PersonneDTO
         return $this->email;
     }
 
-    /***
+    /**
      * @param string $email
      * @return PersonneDTO
      **/
@@ -86,7 +86,7 @@ class PersonneDTO
         return $this;
     }
 
-    /***
+    /**
      * @return string
      **/
     public function getPassword(): string
@@ -94,7 +94,7 @@ class PersonneDTO
         return $this->password;
     }
 
-    /***
+    /**
      * @param string $password
      * @return PersonneDTO
      **/
@@ -104,32 +104,32 @@ class PersonneDTO
         return $this;
     }
 
-    /***
+    /**
      * @var string
      * @Assert\Length(min=1, minMessage="Le prénom doit avoir au moins un caractère !",max=20,maxMessage="Le prénom ne peut pas dépasser 20 caractères !")
      **/
     private string $prenom;
 
-    /***
+    /**
      * @var string
      * @Assert\NotBlank()
      * @Assert\Length(min=1, minMessage="Le login doit avoir au moins un caractère !",max=20,maxMessage="Le login ne peut pas dépasser 20 caractères !")
      **/
     private string $login;
 
-    /***
+    /**
      * @var string
      * @Assert\Email(message="L'email {{ value }} n'est pas valide.")
      **/
     private string $email;
 
-    /***
+    /**
      * @var string
      * @Assert\NotBlank ()
      **/
     private string $password;
 
-    /***
+    /**
      * @return Personne
      **/
     public function toEntity():Personne{
@@ -144,14 +144,14 @@ class PersonneDTO
         return $personne;
     }
 
-    /***
+    /**
      * @Assert\NotBlank ()
      * @Assert\Positive()
      * @Assert\Range(min=00000000000,max=99999999999)
      **/
     private float $nn;
 
-    /***
+    /**
      * Get the value of nn
      **/ 
     public function getnn()
@@ -159,7 +159,7 @@ class PersonneDTO
         return $this->nn;
     }
 
-    /***
+    /**
      * Set the value of nn
      *
      * @return  self
@@ -174,46 +174,46 @@ class PersonneDTO
 
 
     
-    //     /***
+    //     /**
     //  * @Assert\Type(type="blob", nullable=true)
     //  **/
     // private $photoverif;
 
-    // /***
+    // /**
     //  * @ORM\Column (nullable=true, type="string")
     //  **/
     // private $mimeTypephotoverif;
-    //    /***
+    //    /**
     //   * @var UploadedFile
     //   * @Assert\File(mimeTypes= {"image/jpeg","image/jpg","image/png"}, maxSize="20000000" )
     //   **/
     //   private $filephotoverif;
-    //  /***
+    //  /**
     //  * @Assert\Type(type="blob", nullable=true)
     //  **/
     // private $rectocarteid;
 
-    // /***
+    // /**
     //  * @ORM\Column (nullable=true, type="string")
     //  **/
     // private $mimeTyperectocarteid;
 
-    //   /***
+    //   /**
     //  * @var UploadedFile
     //  * @Assert\File(mimeTypes= {"image/jpeg","image/jpg","image/png"}, maxSize="20000000" )
     //  **/
     // private $filerectocarteid;
-    // /***
+    // /**
     //  * @Assert\Type(type="blob", nullable=true)
     //  **/
     // private $versocarteid;
 
-    // /***
+    // /**
     //  * @ORM\Column (nullable=true, type="string")
     //  **/
     // private $mimeTypeversocarteid;
 
-    //   /***
+    //   /**
     //  * @var UploadedFile
     //  * @Assert\File(mimeTypes= {"image/jpeg","image/jpg","image/png"}, maxSize="20000000" )
     //  **/

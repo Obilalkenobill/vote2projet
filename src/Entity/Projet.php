@@ -9,29 +9,29 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/***
+/**
  * @ORM\Entity(repositoryClass=ProjetRepository::class)
  **/
 class Projet
 {
-    /***
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      **/
     private $id;
 
-    /***
+    /**
      * @ORM\Column(type="blob", nullable=true)
      **/
     private $picture;
 
-    /***
+    /**
      * @ORM\Column (nullable=true, type="string")
      **/
     private $mimeType;
 
-    /***
+    /**
      * @return mixed
      **/
     public function getMimeType()
@@ -39,7 +39,7 @@ class Projet
         return $this->mimeType;
     }
 
-    /***
+    /**
      * @param mixed $mimeType
      **/
     public function setMimeType($mimeType): void
@@ -47,13 +47,13 @@ class Projet
         $this->mimeType = $mimeType;
     }
 
-    /***
+    /**
      * @var UploadedFile
      * @Assert\File( mimeTypes= {"image/jpeg","image/jpg","image/png"}, maxSize="20000000" )
      **/
     private $file;
 
-    /***
+    /**
      * @return UploadedFile
      **/
     public function getFile()
@@ -61,28 +61,28 @@ class Projet
         return $this->file;
     }
 
-    /***
+    /**
      * @param UploadedFile $file
      **/
     public function setFile(UploadedFile $file): void
     {
         $this->file = $file;
     }
-    /***
+    /**
      * @ORM\Column(type="string", length=255)
      **/
     private $titre;
 
-    /***
+    /**
      * @ORM\Column(type="integer", nullable=true)
      **/
     private $nbr_vote_pour;
-    /***
+    /**
      * @ORM\Column(type="integer", nullable=true)
      **/
     private $nbr_vote_null;
 
-    /***
+    /**
      * @return mixed
      **/
     public function getNbrVoteNull()
@@ -90,7 +90,7 @@ class Projet
         return $this->nbr_vote_null;
     }
 
-    /***
+    /**
      * @param mixed $nbr_vote_null
      * @return Projet
      **/
@@ -100,7 +100,7 @@ class Projet
         return $this;
     }
 
-    /***
+    /**
      * @return mixed
      **/
     public function getNbrVoteContre()
@@ -108,7 +108,7 @@ class Projet
         return $this->nbr_vote_contre;
     }
 
-    /***
+    /**
      * @param mixed $nbr_vote_contre
      * @return Projet
      **/
@@ -117,52 +117,52 @@ class Projet
         $this->nbr_vote_contre = $nbr_vote_contre;
         return $this;
     }
-    /***
+    /**
      * @ORM\Column(type="integer", nullable=true)
      **/
     private $nbr_vote_contre;
-    /***
+    /**
      * @ORM\Column(type="text")
      **/
     private $descriptif;
 
-    /***
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      **/
     private $date_adm;
 
-    /***
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      **/
     private $date_rej;
 
-    /***
+    /**
      * @ORM\Column(type="datetime")
      **/
     private $creation_date;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="projets",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      **/
     private $personne_id;
 
-    /***
+    /**
      * @ORM\OneToMany(targetEntity=SignalProjet::class, mappedBy="projet_id")
      **/
     private $signalProjets;
 
-    /***
+    /**
      * @ORM\OneToMany(targetEntity=Vote::class, mappedBy="projet_id", orphanRemoval=true)
      **/
     private $votes;
 
-    /***
+    /**
      * @ORM\OneToMany(targetEntity=Follow::class, mappedBy="projet_id")
      **/
     private $follows;
 
-    /***
+    /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="projet_id", orphanRemoval=true)
      **/
     private $commentaires;
@@ -264,7 +264,7 @@ class Projet
         return $this;
     }
 
-    /***
+    /**
      * @return Collection|SignalProjet[]
      **/
     public function getSignalProjets(): Collection
@@ -294,7 +294,7 @@ class Projet
         return $this;
     }
 
-    /***
+    /**
      * @return Collection|Vote[]
      **/
     public function getVotes(): Collection
@@ -324,7 +324,7 @@ class Projet
         return $this;
     }
 
-    /***
+    /**
      * @return Collection|Follow[]
      **/
     public function getFollows(): Collection
@@ -354,7 +354,7 @@ class Projet
         return $this;
     }
 
-    /***
+    /**
      * @return Collection|Commentaire[]
      **/
     public function getCommentaires(): Collection

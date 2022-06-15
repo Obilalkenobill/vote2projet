@@ -6,7 +6,7 @@ use App\Entity\Personne;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method Personne|null find($id, $lockMode = null, $lockVersion = null)
  * @method Personne|null findOneBy(array $criteria, array $orderBy = null)
  * @method Personne[]    findAll()
@@ -144,7 +144,7 @@ return $personne;
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);
     }
-    // /***
+    // /**
     //  * @return Personne[] Returns an array of Personne objects
     //  **/
     /**

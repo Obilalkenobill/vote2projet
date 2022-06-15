@@ -5,35 +5,35 @@ namespace App\Entity;
 use App\Repository\HabiteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/***
+/**
  * @ORM\Entity(repositoryClass=HabiteRepository::class)
  **/
 class Habite
 {
-    /***
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      **/
     private $id;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="habites")
      * @ORM\JoinColumn(nullable=false)
      **/
     private $personne_id;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="habites")
      **/
     private $adresse_id;
 
-    /***
+    /**
      * @ORM\Column(type="date")
      **/
     private $date_arrivee;
 
-    /***
+    /**
      * @ORM\Column(type="date", nullable=true)
      **/
     private $date_depart;

@@ -6,7 +6,7 @@ use App\Entity\Habite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method Habite|null find($id, $lockMode = null, $lockVersion = null)
  * @method Habite|null findOneBy(array $criteria, array $orderBy = null)
  * @method Habite[]    findAll()
@@ -19,7 +19,7 @@ class HabiteRepository extends ServiceEntityRepository
         parent::__construct($registry, Habite::class);
     }
 
-    // /***
+    // /**
     //  * @return Habite[] Returns an array of Habite objects
     //  **/
     /**

@@ -6,7 +6,7 @@ use App\Entity\Commentaire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method Commentaire|null find($id, $lockMode = null, $lockVersion = null)
  * @method Commentaire|null findOneBy(array $criteria, array $orderBy = null)
  * @method Commentaire[]    findAll()
@@ -61,7 +61,7 @@ class CommentaireRepository extends ServiceEntityRepository
     // returns an array of arrays (i.e. a raw data set)
     return $conn->fetchAllAssociative($sql);
    }
-    // /***
+    // /**
     //  * @return Commentaire[] Returns an array of Commentaire objects
     //  **/
     /**

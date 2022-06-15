@@ -6,7 +6,7 @@ use App\Entity\SignalProjet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method SignalProjet|null find($id, $lockMode = null, $lockVersion = null)
  * @method SignalProjet|null findOneBy(array $criteria, array $orderBy = null)
  * @method SignalProjet[]    findAll()
@@ -19,7 +19,7 @@ class SignalProjetRepository extends ServiceEntityRepository
         parent::__construct($registry, SignalProjet::class);
     }
 
-    // /***
+    // /**
     //  * @return SignalProjet[] Returns an array of SignalProjet objects
     //  **/
     /**

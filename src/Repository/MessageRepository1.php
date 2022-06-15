@@ -6,7 +6,7 @@ use App\Entity\Message;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method Message|null find($id, $lockMode = null, $lockVersion = null)
  * @method Message|null findOneBy(array $criteria, array $orderBy = null)
  * @method Message[]    findAll()
@@ -19,7 +19,7 @@ class MessageRepository1 extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    // /***
+    // /**
     //  * @return Message[] Returns an array of Message objects
     //  **/
     /**

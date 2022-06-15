@@ -12,29 +12,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ProjetDTO
 {
-    /***
+    /**
      * @var string
      * @Assert\NotBlank()
      * @Assert\Length(min=25,minMessage="Le titre doit avoir au moins 25 caractères !",max=125,maxMessage="Le titre ne peut pas dépasser 125 caractères !")
      **/
  private string $titre;
-    /***
+    /**
      * @var string
      * @Assert\NotBlank
      * @Assert\Length(min=125,minMessage="Le descriptif doit avoir au moins 125 caractères !")
      **/
  private string $descriptif;
-    /***
+    /**
      * @var DateTime
      * @Assert\DateTime()
      **/
  private DateTime $creation_date;
-    /***
+    /**
      * @var Personne
      **/
  private Personne $personne_id;
 
-    /***
+    /**
      * @return string
      **/
     public function getTitre(): string
@@ -42,7 +42,7 @@ class ProjetDTO
         return $this->titre;
     }
 
-    /***
+    /**
      * @param string $titre
      * @return ProjetDTO
      **/
@@ -52,7 +52,7 @@ class ProjetDTO
         return $this;
     }
 
-    /***
+    /**
      * @return string
      **/
     public function getDescriptif(): string
@@ -60,7 +60,7 @@ class ProjetDTO
         return $this->descriptif;
     }
 
-    /***
+    /**
      * @param string $descriptif
      * @return ProjetDTO
      **/
@@ -70,7 +70,7 @@ class ProjetDTO
         return $this;
     }
 
-    /***
+    /**
      * @return DateTime
      **/
     public function getCreationDate(): DateTime
@@ -78,7 +78,7 @@ class ProjetDTO
         return $this->creation_date;
     }
 
-    /***
+    /**
      * @param DateTime $creation_date
      * @return ProjetDTO
      **/
@@ -88,7 +88,7 @@ class ProjetDTO
         return $this;
     }
 
-    /***
+    /**
      * @return Personne
      **/
     public function getPersonneId(): Personne
@@ -96,7 +96,7 @@ class ProjetDTO
         return $this->personne_id;
     }
 
-    /***
+    /**
      * @param Personne $personne_id
      * @return ProjetDTO
      **/

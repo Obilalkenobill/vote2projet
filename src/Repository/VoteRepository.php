@@ -6,7 +6,7 @@ use App\Entity\Vote;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method Vote|null find($id, $lockMode = null, $lockVersion = null)
  * @method Vote|null findOneBy(array $criteria, array $orderBy = null)
  * @method Vote[]    findAll()
@@ -25,7 +25,7 @@ class VoteRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $conn->fetchAllAssociative($sql);
     }
-    // /***
+    // /**
     //  * @return Vote[] Returns an array of Vote objects
     //  **/
     /**

@@ -6,7 +6,7 @@ use App\Entity\SignalCommentaire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method SignalCommentaire|null find($id, $lockMode = null, $lockVersion = null)
  * @method SignalCommentaire|null findOneBy(array $criteria, array $orderBy = null)
  * @method SignalCommentaire[]    findAll()
@@ -19,7 +19,7 @@ class SignalCommentaireRepository extends ServiceEntityRepository
         parent::__construct($registry, SignalCommentaire::class);
     }
 
-    // /***
+    // /**
     //  * @return SignalCommentaire[] Returns an array of SignalCommentaire objects
     //  **/
     /**

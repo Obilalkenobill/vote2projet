@@ -7,7 +7,7 @@ use App\Entity\Vote;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method Projet|null find($id, $lockMode = null, $lockVersion = null)
  * @method Projet|null findOneBy(array $criteria, array $orderBy = null)
  * @method Projet[]    findAll()

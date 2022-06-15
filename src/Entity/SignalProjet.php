@@ -5,36 +5,36 @@ namespace App\Entity;
 use App\Repository\SignalProjetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/***
+/**
  * @ORM\Entity(repositoryClass=SignalProjetRepository::class)
  **/
 class SignalProjet
 {
-    /***
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      **/
     private $id;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="signalProjets")
      * @ORM\JoinColumn(nullable=false)
      **/
     private $projet_id;
 
-    /***
+    /**
      * @ORM\Column(type="text")
      **/
     private $descriptif;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="signalProjets")
      * @ORM\JoinColumn(nullable=false)
      **/
     private $personne_id;
 
-    /***
+    /**
      * @ORM\Column(type="datetime")
      **/
     private $creation_date;

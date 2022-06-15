@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\RolePersRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/***
+/**
  * @ORM\Entity(repositoryClass=RolePersRepository::class)
  * @ORM\Table(
  *    name="RolePers",
@@ -16,20 +16,20 @@ use Doctrine\ORM\Mapping as ORM;
  **/
 class RolePers
 {
-    /***
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      **/
     private $id;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="rolePers")
      * @ORM\JoinColumn(name="personne_id", nullable=false)
      **/
     private $personne_id;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Role::class, inversedBy="rolePers")
      * @ORM\JoinColumn(name="role_id", nullable=false)
      **/

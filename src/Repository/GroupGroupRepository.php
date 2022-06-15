@@ -6,7 +6,7 @@ use App\Entity\GroupGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method GroupGroup|null find($id, $lockMode = null, $lockVersion = null)
  * @method GroupGroup|null findOneBy(array $criteria, array $orderBy = null)
  * @method GroupGroup[]    findAll()
@@ -19,7 +19,7 @@ class GroupGroupRepository extends ServiceEntityRepository
         parent::__construct($registry, GroupGroup::class);
     }
 
-    // /***
+    // /**
     //  * @return GroupGroup[] Returns an array of GroupGroup objects
     //  **/
     /**

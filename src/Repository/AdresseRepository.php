@@ -6,7 +6,7 @@ use App\Entity\Adresse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/***
+/**
  * @method Adresse|null find($id, $lockMode = null, $lockVersion = null)
  * @method Adresse|null findOneBy(array $criteria, array $orderBy = null)
  * @method Adresse[]    findAll()
@@ -19,7 +19,7 @@ class AdresseRepository extends ServiceEntityRepository
         parent::__construct($registry, Adresse::class);
     }
 
-    // /***
+    // /**
     //  * @return Adresse[] Returns an array of Adresse objects
     //  **/
     /**

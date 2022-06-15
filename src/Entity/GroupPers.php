@@ -5,12 +5,12 @@ namespace App\Entity;
 use App\Repository\GroupPersRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/***
+/**
  * @ORM\Entity(repositoryClass=GroupPersRepository::class)
  **/
 class GroupPers
 {
-    /***
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -18,19 +18,19 @@ class GroupPers
     private $id;
 
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=personne::class)
      * @ORM\JoinColumn(nullable=false)
      **/
     private $personne_id;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=GroupGroup::class)
      * @ORM\JoinColumn(nullable=false)
      **/
     private $group_group_id;
 
-    /***
+    /**
      * @ORM\Column(type="smallint", nullable=true)
      **/
     private $message_read;

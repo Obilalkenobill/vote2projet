@@ -5,41 +5,41 @@ namespace App\Entity;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/***
+/**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
  **/
 class Contact
 {
-    /***
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      **/
     private $id;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="contacts")
      * @ORM\JoinColumn(nullable=false)
      **/
     private $personne1_id;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Personne::class)
      * @ORM\JoinColumn(nullable=false)
      **/
     private $personne2_id;
 
-    /***
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      **/
     private $creation_date;
 
-    /***
+    /**
      * @ORM\Column(type="smallint",options={"default" : 0})
      **/
     private $accept_personne1;
 
-    /***
+    /**
      * @ORM\Column(type="smallint",options={"default" : 0})
      **/
     private $accept_personne2;

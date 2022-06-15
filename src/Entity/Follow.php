@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\FollowRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/***
+/**
  * @ORM\Entity(repositoryClass=FollowRepository::class)
 * @ORM\Table(
  *    name="Follow",
@@ -16,20 +16,20 @@ use Doctrine\ORM\Mapping as ORM;
  **/
 class Follow
 {
-    /***
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      **/
     private $id;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="follows", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      **/
     private $projet_id;
 
-    /***
+    /**
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="follows", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      **/
