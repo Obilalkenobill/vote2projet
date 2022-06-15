@@ -10,221 +10,221 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-/**
+/***
  * @ORM\Entity(repositoryClass=PersonneRepository::class)
- */
+ **/
 class Personne implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
+    /***
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     */
+     **/
     private $id;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=50)
-     */
+     **/
     private $nom;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=50)
-     */
+     **/
     private $prenom;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=50, unique=true)
-     */
+     **/
     private $login;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=50, unique=true)
-     */
+     **/
     private $email;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=255)
-     */
+     **/
     private $password;
-    /**
+    /***
      * @ORM\Column(type="datetime", nullable=true)
-     */
+     **/
     private $creation_date;
 
 
-        /**
+        /***
      * The public representation of the user (e.g. a username, an email address, etc.)
      *
      * @see UserInterface
-     */
+     **/
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
+    /***
      * @return mixed
-     */
+     **/
     public function getCreationDate()
     {
         return $this->creation_date;
     }
 
-    /**
+    /***
      * @param mixed $creation_date
-     */
+     **/
     public function setCreationDate($creation_date): void
     {
         $this->creation_date = $creation_date;
     }
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="personne1_id")
-     */
+     **/
     private $contacts;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=Habite::class, mappedBy="personne_id")
-     */
+     **/
     private $habites;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="expediteur", orphanRemoval=true)
-     */
+     **/
     private $messages;
 
 
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=Projet::class, mappedBy="personne_id")
-     */
+     **/
     private $projets;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=SignalProjet::class, mappedBy="personne_id")
-     */
+     **/
     private $signalProjets;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=Vote::class, mappedBy="personne_id")
-     */
+     **/
     private $votes;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=Follow::class, mappedBy="personne_id")
-     */
+     **/
     private $follows;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="personne_id")
-     */
+     **/
     private $commentaires;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=SignalCommentaire::class, mappedBy="personne_id")
-     */
+     **/
     private $signalCommentaires;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=Mentionne::class, mappedBy="personne_id")
-     */
+     **/
     private $mentionnes;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=RolePers::class, mappedBy="personne_id")
      *
-     */
+     **/
     private $rolePers;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=255, unique=true)
-     */
+     **/
     private $salt;
 
-    /**
+    /***
      * @ORM\Column(type="integer", nullable=true, options={"default" : 0})
      * @Assert\Range(min = 0, max = 1)
-     */
+     **/
 
     private $isActive;
-    /**
+    /***
      * @ORM\Column(type="integer", nullable=true, options={"default" : 0})
      * @Assert\Range(min = 0,max = 1)
-     */
+     **/
 
     private $isVerified;
-   /**
+   /***
      * @ORM\Column(type="bigint", unique=true)
-     */
+     **/
     private $nn;
 
-    /**
+    /***
      * Get the value of nn
-     */ 
+     **/ 
     public function getnn()
     {
         return $this->nn;
     }
 
-    /**
+    /***
      * Set the value of nn
      *
      * @return  self
-     */ 
+     **/ 
     public function setnn($nn)
     {
         $this->nn = $nn;
 
         return $this;
     }
-        /**
+        /***
      * @ORM\Column(type="blob", nullable=true)
-     */
+     **/
     private $photoverif;
 
-    /**
+    /***
      * @ORM\Column (nullable=true, type="string")
-     */
+     **/
     private $mimeTypephotoverif;
-       /**
+       /***
       * @var UploadedFile
       * @Assert\File(mimeTypes= {"image/jpeg","image/jpg","image/png"}, maxSize="20000000" )
-      */
+      **/
       private $filephotoverif;
-     /**
+     /***
      * @ORM\Column(type="blob", nullable=true)
-     */
+     **/
     private $rectocarteid;
 
-    /**
+    /***
      * @ORM\Column (nullable=true, type="string")
-     */
+     **/
     private $mimeTyperectocarteid;
 
-      /**
+      /***
      * @var UploadedFile
      * @Assert\File(mimeTypes= {"image/jpeg","image/jpg","image/png"}, maxSize="20000000" )
-     */
+     **/
     private $filerectocarteid;
-    /**
+    /***
      * @ORM\Column(type="blob", nullable=true)
-     */
+     **/
     private $versocarteid;
 
-    /**
+    /***
      * @ORM\Column (nullable=true, type="string")
-     */
+     **/
     private $mimeTypeversocarteid;
 
-      /**
+      /***
      * @var UploadedFile
      * @Assert\File(mimeTypes= {"image/jpeg","image/jpg","image/png"}, maxSize="20000000" )
-     */
+     **/
     private $fileversocarteid;
 
-    /**
+    /***
      * @ORM\Column(type="smallint",options={"default" : 0})
-     */
+     **/
     private $is_on_line;
 
   
@@ -257,17 +257,17 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
     return null;
     }
 
-    /**
+    /***
      * @return mixed
-     */
+     **/
     public function getIsActive()
     {
         return $this->isActive;
     }
 
-    /**
+    /***
      * @param mixed $isActive
-     */
+     **/
     public function setIsActive($isActive): void
     {
         $this->isActive = $isActive;
@@ -354,9 +354,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|Contact[]
-     */
+     **/
     public function getContacts(): Collection
     {
         return $this->contacts;
@@ -384,9 +384,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|Habite[]
-     */
+     **/
     public function getHabites(): Collection
     {
         return $this->habites;
@@ -414,9 +414,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|Message[]
-     */
+     **/
     public function getMessages(): Collection
     {
         return $this->messages;
@@ -445,9 +445,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
+    /***
      * @return Collection|Projet[]
-     */
+     **/
     public function getProjets(): Collection
     {
         return $this->projets;
@@ -475,9 +475,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|SignalProjet[]
-     */
+     **/
     public function getSignalProjets(): Collection
     {
         return $this->signalProjets;
@@ -505,9 +505,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|Vote[]
-     */
+     **/
     public function getVotes(): Collection
     {
         return $this->votes;
@@ -535,9 +535,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|Follow[]
-     */
+     **/
     public function getFollows(): Collection
     {
         return $this->follows;
@@ -565,9 +565,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|Commentaire[]
-     */
+     **/
     public function getCommentaires(): Collection
     {
         return $this->commentaires;
@@ -595,9 +595,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|SignalCommentaire[]
-     */
+     **/
     public function getSignalCommentaires(): Collection
     {
         return $this->signalCommentaires;
@@ -625,9 +625,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|Mentionne[]
-     */
+     **/
     public function getMentionnes(): Collection
     {
         return $this->mentionnes;
@@ -655,9 +655,9 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|RolePers[]
-     */
+     **/
     public function getRolePers(): Collection
     {
         return $this->rolePers;
@@ -719,19 +719,19 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
+    /***
      * Get the value of isVerified
-     */ 
+     **/ 
     public function getIsVerified()
     {
         return $this->isVerified;
     }
 
-    /**
+    /***
      * Set the value of isVerified
      *
      * @return  self
-     */ 
+     **/ 
     public function setIsVerified($isVerified)
     {
         $this->isVerified = $isVerified;
@@ -739,19 +739,19 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * Get the value of rectocarteid
-     */ 
+     **/ 
     public function getrectocarteid()
     {
         return $this->rectocarteid;
     }
 
-    /**
+    /***
      * Set the value of rectocarteid
      *
      * @return  self
-     */ 
+     **/ 
     public function setrectocarteid($rectocarteid)
     {
         $this->rectocarteid = $rectocarteid;
@@ -759,19 +759,19 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * Get the value of mimeTyperectocarteid
-     */ 
+     **/ 
     public function getmimeTyperectocarteid()
     {
         return $this->mimeTyperectocarteid;
     }
 
-    /**
+    /***
      * Set the value of mimeTyperectocarteid
      *
      * @return  self
-     */ 
+     **/ 
     public function setmimeTyperectocarteid($mimeTyperectocarteid)
     {
         $this->mimeTyperectocarteid = $mimeTyperectocarteid;
@@ -779,13 +779,13 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * Set the value of filerectocarteid
      *
      * @param  UploadedFile  $filerectocarteid
      *
      * @return  self
-     */ 
+     **/ 
     public function setfilerectocarteid(UploadedFile $filerectocarteid)
     {
         $this->filerectocarteid = $filerectocarteid;
@@ -793,19 +793,19 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * Get the value of versocarteid
-     */ 
+     **/ 
     public function getversocarteid()
     {
         return $this->versocarteid;
     }
 
-    /**
+    /***
      * Set the value of versocarteid
      *
      * @return  self
-     */ 
+     **/ 
     public function setversocarteid($versocarteid)
     {
         $this->versocarteid = $versocarteid;
@@ -813,19 +813,19 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * Get the value of mimeTypeversocarteid
-     */ 
+     **/ 
     public function getmimeTypeversocarteid()
     {
         return $this->mimeTypeversocarteid;
     }
 
-    /**
+    /***
      * Set the value of mimeTypeversocarteid
      *
      * @return  self
-     */ 
+     **/ 
     public function setmimeTypeversocarteid($mimeTypeversocarteid)
     {
         $this->mimeTypeversocarteid = $mimeTypeversocarteid;
@@ -833,23 +833,23 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * Get the value of fileversocarteid
      *
      * @return  UploadedFile
-     */ 
+     **/ 
     public function getfileversocarteid()
     {
         return $this->fileversocarteid;
     }
 
-    /**
+    /***
      * Set the value of fileversocarteid
      *
      * @param  UploadedFile  $fileversocarteid
      *
      * @return  self
-     */ 
+     **/ 
     public function setfileversocarteid(UploadedFile $fileversocarteid)
     {
         $this->fileversocarteid = $fileversocarteid;
@@ -857,19 +857,19 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * Get the value of photoverif
-     */ 
+     **/ 
     public function getPhotoverif()
     {
         return $this->photoverif;
     }
 
-    /**
+    /***
      * Set the value of photoverif
      *
      * @return  self
-     */ 
+     **/ 
     public function setPhotoverif($photoverif)
     {
         $this->photoverif = $photoverif;
@@ -877,19 +877,19 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+    /***
      * Get the value of mimeTypephotoverif
-     */ 
+     **/ 
     public function getMimeTypephotoverif()
     {
         return $this->mimeTypephotoverif;
     }
 
-    /**
+    /***
      * Set the value of mimeTypephotoverif
      *
      * @return  self
-     */ 
+     **/ 
     public function setMimeTypephotoverif($mimeTypephotoverif)
     {
         $this->mimeTypephotoverif = $mimeTypephotoverif;
@@ -897,23 +897,23 @@ class Personne implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-      /**
+      /***
        * Get the value of filephotoverif
        *
        * @return  UploadedFile
-       */ 
+       **/ 
       public function getFilephotoverif()
       {
             return $this->filephotoverif;
       }
 
-      /**
+      /***
        * Set the value of filephotoverif
        *
        * @param  UploadedFile  $filephotoverif
        *
        * @return  self
-       */ 
+       **/ 
       public function setFilephotoverif(UploadedFile $filephotoverif)
       {
             $this->filephotoverif = $filephotoverif;

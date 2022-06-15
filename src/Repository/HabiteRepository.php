@@ -6,12 +6,12 @@ use App\Entity\Habite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
+/***
  * @method Habite|null find($id, $lockMode = null, $lockVersion = null)
  * @method Habite|null findOneBy(array $criteria, array $orderBy = null)
  * @method Habite[]    findAll()
  * @method Habite[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+ **/
 class HabiteRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -19,10 +19,10 @@ class HabiteRepository extends ServiceEntityRepository
         parent::__construct($registry, Habite::class);
     }
 
-    // /**
+    // /***
     //  * @return Habite[] Returns an array of Habite objects
-    //  */
-    /*
+    //  **/
+    /**
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('h')
@@ -34,9 +34,9 @@ class HabiteRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+    **/
 
-    /*
+    /**
     public function findOneBySomeField($value): ?Habite
     {
         return $this->createQueryBuilder('h')
@@ -46,5 +46,5 @@ class HabiteRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+    **/
 }

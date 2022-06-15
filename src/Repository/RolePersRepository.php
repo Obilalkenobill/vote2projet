@@ -7,12 +7,12 @@ use App\Entity\RolePers;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
+/***
  * @method RolePers|null find($id, $lockMode = null, $lockVersion = null)
  * @method RolePers|null findOneBy(array $criteria, array $orderBy = null)
  * @method RolePers[]    findAll()
  * @method RolePers[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+ **/
 class RolePersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

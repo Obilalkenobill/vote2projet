@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\VoteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
+/***
  * @ORM\Entity(repositoryClass=VoteRepository::class)
  * @ORM\Table(
  *    name="vote",
@@ -13,41 +13,41 @@ use Doctrine\ORM\Mapping as ORM;
  *        @ORM\UniqueConstraint(name="assignment_unique", columns={"personne_id", "projet_id"})
  *    }
  * )
- */
+ **/
 class Vote
 {
-    /**
+    /***
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     */
+     **/
     private $id;
 
-    /**
+    /***
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="votes")
      * @ORM\JoinColumn(name="projet_id", nullable=false)
-     */
+     **/
     private $projet_id;
 
-    /**
+    /***
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="votes", cascade={"persist"})
      * @ORM\JoinColumn(name="personne_id", nullable=false)
-     */
+     **/
     private $personne_id;
 
-    /**
+    /***
      * @ORM\Column(type="integer", nullable=true)
-     */
+     **/
     private $bull_vote;
 
-    /**
+    /***
      * @ORM\Column(type="integer")
-     */
+     **/
     private $a_vote;
 
-    /**
+    /***
      * @ORM\Column(type="datetime")
-     */
+     **/
     private $creation_date;
 
     public function getId(): ?int

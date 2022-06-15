@@ -29,7 +29,7 @@ class MessageController extends AbstractFOSRestController
 
     /**
      * @Route("/message", name="message")
-     */
+     **/
     public function index(): Response
     {
         return $this->render('message/index.html.twig', [
@@ -41,7 +41,7 @@ class MessageController extends AbstractFOSRestController
      * @Rest\Post("/api/personne/send/message", name="app_post_message")
      * @Rest\View()
      * @ParamConverter("message",converter="fos_rest.request_body")
-     */
+     **/
     public function MessagePost(Request $req, Message $message, MessageRepository $repo, GroupPersRepository $group_pers_repo){
         $em = $this->getDoctrine()->getManager();
      $message->setCreationDate(new \DateTime(), new \DateTimeZone('Europe/Paris'));
@@ -54,7 +54,7 @@ class MessageController extends AbstractFOSRestController
     /**
      * @Rest\Get (path="api/personne/message_by_group/{Groupe_ID}/{Personne_ID}",name="api_get_all_XAmessage")
      * @Rest\View()
-     */
+     **/
     public function getMessageGroupe($Groupe_ID, $Personne_ID, MessageRepository $repo){
         $Messages=$repo->findMessageByGroupId($Groupe_ID,$Personne_ID);
         return $this->view( [$Messages]);

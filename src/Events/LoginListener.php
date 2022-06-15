@@ -10,9 +10,9 @@ use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
  
 class LoginListener
 {
-    /**
+    /***
      * @param JWTCreatedEvent $event
-     */
+     **/
     public function onJWTCreated(JWTCreatedEvent $event)
     {
         $payload = $event->getData();

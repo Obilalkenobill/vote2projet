@@ -6,12 +6,12 @@ use App\Entity\Personne;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
+/***
  * @method Personne|null find($id, $lockMode = null, $lockVersion = null)
  * @method Personne|null findOneBy(array $criteria, array $orderBy = null)
  * @method Personne[]    findAll()
  * @method Personne[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+ **/
 class PersonneRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -144,10 +144,10 @@ return $personne;
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);
     }
-    // /**
+    // /***
     //  * @return Personne[] Returns an array of Personne objects
-    //  */
-    /*
+    //  **/
+    /**
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('p')
@@ -159,9 +159,9 @@ return $personne;
             ->getResult()
         ;
     }
-    */
+    **/
 
-    /*
+    /**
     public function findOneBySomeField($value): ?Personne
     {
         return $this->createQueryBuilder('p')
@@ -171,5 +171,5 @@ return $personne;
             ->getOneOrNullResult()
         ;
     }
-    */
+    **/
 }

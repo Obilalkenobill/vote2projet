@@ -19,7 +19,7 @@ class SecurityController extends AbstractFOSRestController
 
     // /**
     //  * @Route("api/login_check", name="login")
-    //  */
+    //  **/
     // public function login(): JsonResponse
     // {
         
@@ -39,7 +39,7 @@ class SecurityController extends AbstractFOSRestController
 
     // /**
     //  * @Route("api/login", name="app_login")
-    //  */
+    //  **/
     // public function login(AuthenticationUtils $authenticationUtils): Response
     // {
     //     $
@@ -57,14 +57,14 @@ class SecurityController extends AbstractFOSRestController
 
     /**
      * @Route("api/logout", name="app_logout")
-     */
+     **/
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
     /**
      * @Route("api/activate/{salt}/{id}", name="app_activation")
-     */
+     **/
     public function activate ($salt,? Personne $personne){
         $personneRepo=$this->getDoctrine()->getRepository(Personne::class);
         $personnebis=$personneRepo->findOneBy(['salt' => $salt]);
@@ -86,7 +86,7 @@ class SecurityController extends AbstractFOSRestController
      * @Rest\Post("/api/register", name="app_register")
      * @Rest\View()
      * @ParamConverter("dto",converter="fos_rest.request_body")
-     */
+     **/
     public function register(ConstraintViolationList $violations,PersonneDTO $dto,UserPasswordHasherInterface $hasher, MailerInterface $mailer){
      if (sizeof($violations) > 0){
          return $this->view(["errors" => $violations]);

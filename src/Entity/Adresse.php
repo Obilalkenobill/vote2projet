@@ -7,41 +7,41 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
+/***
  * @ORM\Entity(repositoryClass=AdresseRepository::class)
- */
+ **/
 class Adresse
 {
-    /**
+    /***
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     */
+     **/
     private $id;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=255)
-     */
+     **/
     private $ville;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=255)
-     */
+     **/
     private $C_P;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=255)
-     */
+     **/
     private $rue;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=255, nullable=true)
-     */
+     **/
     private $numero;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=Habite::class, mappedBy="adresse_id")
-     */
+     **/
     private $habites;
 
     public function __construct()
@@ -102,9 +102,9 @@ class Adresse
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|Habite[]
-     */
+     **/
     public function getHabites(): Collection
     {
         return $this->habites;

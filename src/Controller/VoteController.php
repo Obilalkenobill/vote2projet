@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  * Class VoteController
  * @package App\Controller
  * @Route (path="/api/vote")
- */
+ **/
 class VoteController extends AbstractFOSRestController
 {
 
@@ -25,7 +25,7 @@ class VoteController extends AbstractFOSRestController
      * @Rest\Post("", name="appVotePost")
      * @Rest\View()
      * @ParamConverter("vote",converter="fos_rest.request_body")
-     */
+     **/
     public function vote(Vote $vote){
         $votebis=new Vote();
         $votebis->setCreationDate(new \DateTime(), new \DateTimeZone('Europe/Paris'));;
@@ -46,7 +46,7 @@ class VoteController extends AbstractFOSRestController
      * @Rest\Post("/voteByProjUser", name="appVoteByProjUser")
      * @Rest\View()
      * @ParamConverter("vote",converter="fos_rest.request_body")
-     */
+     **/
     public function getVoteUserById(Vote $vote, VoteRepository $voteRepo){
         
         $voteReturn=$voteRepo->findOneBybis($vote->getProjetId()->getId(),$vote->getPersonneId()->getId());

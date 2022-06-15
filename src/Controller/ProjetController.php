@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class ProjetController
  * @package App\Controller
  * @Route (path="/api/projet")
- */
+ **/
 class ProjetController extends AbstractFOSRestController
 {
     private $repo;
@@ -34,7 +34,7 @@ class ProjetController extends AbstractFOSRestController
     }
     /**
      * @Route("/projet", name="projet")
-     */
+     **/
     public function index(): Response
     {
         return $this->render('projet/index.html.twig', [
@@ -45,7 +45,7 @@ class ProjetController extends AbstractFOSRestController
     /**
      * @Rest\Get (path="/readAll/{personne}",name="api_projet_readAll")
      * @Rest\View()
-     */
+     **/
     public function readAll(Personne $personne, ProjetRepository $repo){
         $personne_id=$personne->getId();
         return $this->view(["projets"=> $repo->findAllbis($personne_id)]);
@@ -53,7 +53,7 @@ class ProjetController extends AbstractFOSRestController
    /**
      * @Rest\Get (path="/{projet}",name="api_projet_getById")
      * @Rest\View()
-     */
+     **/
     public function getProjetById(Projet $projet, ProjetRepository $repo){
         $nbrBullNull=$repo->getNbreBullNull($projet);
         $projet->setNbrVoteNull($nbrBullNull[0]["COUNT(*)"]);
@@ -71,7 +71,7 @@ class ProjetController extends AbstractFOSRestController
        /**
      * @Rest\Get (path="/byUser/{personne}",name="api_projet_getByUserId")
      * @Rest\View()
-     */
+     **/
     public function getProjetByUserId(Personne $personne, ProjetRepository $repo){
         $personne_id=$personne->getId();
         $projets=$repo->findProjetByUserRPO($personne_id);
@@ -81,7 +81,7 @@ class ProjetController extends AbstractFOSRestController
           /**
      * @Rest\Get (path="/byFollower/{personne}",name="api_projet_getFollower")
      * @Rest\View()
-     */
+     **/
     public function getProjetByFollower(Personne $personne, ProjetRepository $repo){
         $personne_id=$personne->getId();
         $projets=$repo->findProjetByFollower($personne_id);
@@ -91,7 +91,7 @@ class ProjetController extends AbstractFOSRestController
     /**
      * @Rest\Get (path="/comment/byProjetID/{projet}",name="api_projet_getComments")
      * @Rest\View()
-     */
+     **/
     public function getCommentByProjet(Projet $projet,CommentaireRepository $repoC){
         $projet_id=$projet->getId();
         $comments=$repoC->findCommentByProjetID($projet_id);
@@ -101,7 +101,7 @@ class ProjetController extends AbstractFOSRestController
      * @Rest\Post("/get/follow", name="appGetFollowByFollow")
      * @Rest\View()
      * @ParamConverter("follow",converter="fos_rest.request_body")
-     */
+     **/
     public function getFollowUserById(Follow $follow, FollowRepository $repo){
         $followReturn=$repo->findOneBy(['projet_id'=>$follow->getProjetId(),'personne_id'=>$follow->getPersonneId()]);
         $bool=true;
@@ -117,7 +117,7 @@ class ProjetController extends AbstractFOSRestController
      * @Rest\Post("/create", name="appCreateProjet")
      * @Rest\View()
      * @ParamConverter("projet",converter="fos_rest.request_body")
-     */
+     **/
     public function addProjet(Request $req, Projet $projet, ProjetRepository $repo){
         $data = json_decode($req->getContent(), true);
 
@@ -129,7 +129,7 @@ class ProjetController extends AbstractFOSRestController
 
     /**
      * @Rest\Delete(path="/delete/{projet}", name="delete_projet_byID")
-     */
+     **/
     public function deleteProjet(Projet $projet, ProjetRepository $projetRepo)
     {
        //  $personneRepo=$this->getDoctrine()->getRepository(Personne::class);
@@ -147,7 +147,7 @@ class ProjetController extends AbstractFOSRestController
      * @Rest\Post("/create/follow", name="appCreateFollow")
      * @Rest\View()
      * @ParamConverter("follow",converter="fos_rest.request_body")
-     */
+     **/
     public function addFollow(Follow $follow){
         // $followbis=new Follow();
         // $followbis->setPersonneId($follow->getPersonneId());
@@ -164,7 +164,7 @@ class ProjetController extends AbstractFOSRestController
      * @param EntityManagerInterface $em
      * @param Request $req
      * @return View
-     */
+     **/
     public function addComment(Request $req, CommentaireRepository $repo){
         $data = json_decode($req->getContent(), true);
         $commentaire=$data["commentaire"];
@@ -183,7 +183,7 @@ class ProjetController extends AbstractFOSRestController
      * @param EntityManagerInterface $em
      * @param Request $req
      * @return View
-     */
+     **/
     public function updateComment(Request $req, CommentaireRepository $repo){
         $data = json_decode($req->getContent(), true);
         $commentaire=$data["commentaire"];
@@ -195,7 +195,7 @@ class ProjetController extends AbstractFOSRestController
      * @Rest\Post("/delete/follow", name="appDeleteFollow")
      * @Rest\View()
      * @ParamConverter("follow",converter="fos_rest.request_body")
-     */
+     **/
     public function unFollow(Follow $follow,ProjetRepository $repo){
         // $followbis=new Follow();
         $projet_id=$follow->getProjetId()->getId();

@@ -32,7 +32,7 @@ class PersonneController extends AbstractFOSRestController
 
     /**
      * @Route("/personne/xml", name="personnebis")
-     */
+     **/
     public function indexml(SerializerInterface $serializer): Response
     {
 
@@ -52,7 +52,7 @@ class PersonneController extends AbstractFOSRestController
      * @Rest\Get(path="/api/personne", name="personne_getall")
      * @Rest\View()
      * @return View
-     */
+     **/
     public function getAll(PersonneRepository $repo)
     {
         return $this->view([
@@ -63,7 +63,7 @@ class PersonneController extends AbstractFOSRestController
      * @Rest\Get(path="/api/personne/contact/{UserId}", name="personne_getallbis")
      * @Rest\View()
      * @return View
-     */
+     **/
     public function getAllbis($UserId,PersonneRepository $repo)
     {
         return $this->view([
@@ -76,7 +76,7 @@ class PersonneController extends AbstractFOSRestController
      * @Rest\Get(path="/api/personne/invitation/{id}", name="personne_get_invit")
      * @Rest\View()
      * @return View
-     */
+     **/
     public function getInvit_Perso($id, PersonneRepository $repo)
     {
 
@@ -90,7 +90,7 @@ class PersonneController extends AbstractFOSRestController
      * @Rest\Get(path="/api/personne/ami/{id}", name="personne_get_ami")
      * @Rest\View()
      * @return View
-     */
+     **/
     public function getAmi($id, PersonneRepository $repo)
     {
 
@@ -103,7 +103,7 @@ class PersonneController extends AbstractFOSRestController
      * @Rest\Put(path="/api/personne/invitation/{id1}/{id2}", name="personne_add_contact")
      * @Rest\View()
      * @return View
-     */
+     **/
     public function putAddContact($id1,$id2, PersonneRepository $repo)
     {
 
@@ -117,7 +117,7 @@ class PersonneController extends AbstractFOSRestController
      * @Rest\Put(path="/api/personne/contact/retirer/{id1}/{id2}", name="personne_retirer_ami")
      * @Rest\View()
      * @return View
-     */
+     **/
     public function retirer_ami($id1,$id2, PersonneRepository $repo)
     {
 
@@ -132,7 +132,7 @@ class PersonneController extends AbstractFOSRestController
      * @Rest\Put(path="/api/personne/invitation/accepter/{id1}/{id2}", name="personne_acc_invit")
      * @Rest\View()
      * @return View
-     */
+     **/
     public function accepter_invit($id1,$id2, PersonneRepository $repo)
     {
 
@@ -144,7 +144,7 @@ class PersonneController extends AbstractFOSRestController
 
       /**
      * @Rest\Put("api/users/validate/{personne}", name="app_activationUser")
-     */
+     **/
     public function activate (Personne $personne){
             $personne->setIsVerified(true);
             $em = $this->getDoctrine()->getManager();
@@ -157,7 +157,7 @@ class PersonneController extends AbstractFOSRestController
         }
       /**
      * @Rest\Put("api/users/setOnline/{personne}/{status}", name="app_set_is_on_lineUser")
-     */
+     **/
     public function setIsOnline (Personne $personne,$status){
         if($status == true){
             $personne->setIsOnline(1);
@@ -175,7 +175,7 @@ class PersonneController extends AbstractFOSRestController
     }
       /**
      * @Rest\Get(path="/api/users/name/{login}", name="personne_getbylogin")
-     */
+     **/
     public function getbyLogin($login)
     {
         $personneRepo=$this->getDoctrine()->getRepository(Personne::class);
@@ -194,7 +194,7 @@ class PersonneController extends AbstractFOSRestController
     }
     /**
      * @Rest\Get(path="/api/users/email/{email}", name="personne_getbyemail")
-     */
+     **/
     public function getbyEmail($email)
     {
         $personneRepo=$this->getDoctrine()->getRepository(Personne::class);
@@ -216,7 +216,7 @@ class PersonneController extends AbstractFOSRestController
 
     /**
      * @Rest\Get(path="/api/users/id/{personne}", name="personne_getID")
-     */
+     **/
      public function getbyId(Personne $personne, PersonneRepository $repo)
      {
         //  $personneRepo=$this->getDoctrine()->getRepository(Personne::class);
@@ -232,7 +232,7 @@ class PersonneController extends AbstractFOSRestController
      }
          /**
      * @Rest\Delete(path="/api/users/delete/{personne}", name="delete_personne_getID")
-     */
+     **/
     public function deleteUser(Personne $personne, RolePersRepository $repoRolePers)
     {
        //  $personneRepo=$this->getDoctrine()->getRepository(Personne::class);
@@ -248,7 +248,7 @@ class PersonneController extends AbstractFOSRestController
     }
          /**
      * @Rest\Get(path="/api/users/nn/{nn}", name="personne_getbyNN")
-     */
+     **/
     public function getbynn($nn)
     {
         $personneRepo=$this->getDoctrine()->getRepository(Personne::class);
@@ -268,7 +268,7 @@ class PersonneController extends AbstractFOSRestController
 
         /**
      * @Rest\Delete(path="/api/personne/groupes/retirer_part/{user_id}/{group_act_id}", name="delete_personne_in_group")
-     */
+     **/
     public function deletePartInGroup($user_id,$group_act_id, MessageRepository $repo)
     {
   
@@ -280,7 +280,7 @@ class PersonneController extends AbstractFOSRestController
 
      /**
      * @Rest\Put(path="/api/personne/groupes/ajouter_part/{user_id}/{group_act_id}", name="ajouter_personne_in_group")
-     */
+     **/
     public function ajouterPartInGroup($user_id,$group_act_id, MessageRepository $repo)
     {
   
@@ -292,7 +292,7 @@ class PersonneController extends AbstractFOSRestController
 
          /**
      * @Rest\Put(path="/api/personne/groupes/delete/{group_act_id}", name="dissoudre_group")
-     */
+     **/
     public function dissoudreGroupe($group_act_id, MessageRepository $repo)
     {
   
@@ -305,7 +305,7 @@ class PersonneController extends AbstractFOSRestController
     
          /**
      * @Rest\Put(path="/api/personne/groupes/elire/{group_act_id}/{user_id}", name="dissoudre_group")
-     */
+     **/
     public function elirGerantGroupe($group_act_id,$user_id, MessageRepository $repo)
     {
   
@@ -321,7 +321,7 @@ class PersonneController extends AbstractFOSRestController
      * @param EntityManagerInterface $em
      * @param Request $req
      * @return View
-     */
+     **/
     public function getGroup($userid,Request $req, EntityManagerInterface $em, MessageRepository $repo) {
           return $this->view([
            $repo->selectGroupMessage($userid)
@@ -335,7 +335,7 @@ class PersonneController extends AbstractFOSRestController
      * @param EntityManagerInterface $em
      * @param Request $req
      * @return View
-     */
+     **/
     public function getMessPartic($groupid, MessageRepository $repo) {
 $ok=$repo->selecMessPartic($groupid);
         return $this->view([
@@ -349,7 +349,7 @@ $ok=$repo->selecMessPartic($groupid);
      * @param EntityManagerInterface $em
      * @param Request $req
      * @return View
-     */
+     **/
     public function createGroup($nom_groupe,Request $req, MessageRepository $repo) {
         $tab=[];
         $i=0;
@@ -371,7 +371,7 @@ $ok=$repo->selecMessPartic($groupid);
      * @param EntityManagerInterface $em
      * @param Request $req
      * @return View
-     */
+     **/
     public function pathImageVerif(Request $req, EntityManagerInterface $em, PersonneRepository $repo) {
         $personne=$repo->findOneBy( [ 'id' => ( $req->request->get('UserId') ) ] );
        try{

@@ -7,26 +7,26 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
+/***
  * @ORM\Entity(repositoryClass=RoleRepository::class)
- */
+ **/
 class Role
 {
-    /**
+    /***
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     */
+     **/
     private $id;
 
-    /**
+    /***
      * @ORM\Column(type="string", length=255)
-     */
+     **/
     private $label;
 
-    /**
+    /***
      * @ORM\OneToMany(targetEntity=RolePers::class, mappedBy="role_id")
-     */
+     **/
     private $rolePers;
 
     public function __construct()
@@ -51,9 +51,9 @@ class Role
         return $this;
     }
 
-    /**
+    /***
      * @return Collection|RolePers[]
-     */
+     **/
     public function getRolePers(): Collection
     {
         return $this->rolePers;
