@@ -56,7 +56,7 @@ class PersonneController extends AbstractFOSRestController
     public function getAll(PersonneRepository $repo)
     {
         return $this->view([
-            "Personnes"=>$repo->findAll()
+            "Personnes"=>$repo->findAllbis(0)
          ]);
     }
         /**
