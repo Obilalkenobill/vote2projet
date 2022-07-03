@@ -11,36 +11,36 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CommentaireRepository::class)
- **/
+ */
 class Commentaire
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     **/
+     */
     private $id;
 
     /**
      * @ORM\Column(type="blob", nullable=true)
-     **/
+     */
     private $picture;
 
     /**
      * @ORM\Column (nullable=true, type="string")
-     **/
+     */
     private $mimeType;
 
       /**
      * @var UploadedFile
      * @Assert\File(mimeTypes= {"image/jpeg","image/jpg","image/png"}, maxSize="20000000" )
-     **/
+     */
     private $file;
 
 
     /**
      * @return mixed
-     **/
+     */
     public function getMimeType()
     {
         return $this->mimeType;
@@ -48,7 +48,7 @@ class Commentaire
 
     /**
      * @param mixed $mimeType
-     **/
+     */
     public function setMimeType($mimeType): void
     {
         $this->mimeType = $mimeType;
@@ -56,7 +56,7 @@ class Commentaire
 
     /**
      * @return UploadedFile
-     **/
+     */
     public function getFile()
     {
         return $this->file;
@@ -64,7 +64,7 @@ class Commentaire
 
     /**
      * @param UploadedFile $file
-     **/
+     */
     public function setFile(UploadedFile $file): void
     {
         $this->file = $file;
@@ -72,44 +72,49 @@ class Commentaire
     /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="commentaires")
      * @ORM\JoinColumn(nullable=false)
-     **/
+     */
     private $projet_id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="commentaires",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-     **/
+     */
     private $personne_id;
 
     /**
      * @ORM\Column(type="text")
-     **/
+     */
     private $commentaire;
 
     /**
      * @ORM\Column(type="datetime")
-     **/
+     */
     private $creation_date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     **/
+     */
     private $modif_date;
 
     /**
      * @ORM\ManyToOne(targetEntity=Commentaire::class, inversedBy="commentaires",cascade={"persist"})
-     **/
+     */
     private $commentaire_referent_id;
 
     /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="commentaire_referent_id")
-     **/
+     */
     private $commentaires;
 
     /**
      * @ORM\OneToMany(targetEntity=SignalCommentaire::class, mappedBy="commentaire_id")
-     **/
+     */
     private $signalCommentaires;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true, options={"default" : 0})
+     */
+    private $is_lock;
 
     public function __construct()
     {
@@ -196,7 +201,7 @@ class Commentaire
 
     /**
      * @return Collection|self[]
-     **/
+     */
     public function getCommentaires(): Collection
     {
         return $this->commentaires;
@@ -226,7 +231,7 @@ class Commentaire
 
     /**
      * @return Collection|SignalCommentaire[]
-     **/
+     */
     public function getSignalCommentaires(): Collection
     {
         return $this->signalCommentaires;
@@ -250,6 +255,18 @@ class Commentaire
                 $signalCommentaire->setCommentaireId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsLock(): ?int
+    {
+        return $this->is_lock;
+    }
+
+    public function setIsLock(?int $is_lock): self
+    {
+        $this->is_lock = $is_lock;
 
         return $this;
     }

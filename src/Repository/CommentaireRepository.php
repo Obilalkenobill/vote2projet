@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Commentaire|null findOneBy(array $criteria, array $orderBy = null)
  * @method Commentaire[]    findAll()
  * @method Commentaire[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class CommentaireRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -40,11 +40,25 @@ class CommentaireRepository extends ServiceEntityRepository
         return $conn->fetchAllAssociative($sql);
     }
 
+    public function signal($personne_id_id, $commentaire_id_id, $descriptif) 
+    {
+       $conn = $this->getEntityManager()->getConnection();
+       $date=new \DateTime("now");
+       $creation_date = $date->format('Y-m-d H:i:s');
+           $sql = '
+           INSERT INTO signal_commentaire (personne_id_id, commentaire_id_id, descriptif, creation_date)
+           VALUES ('.$personne_id_id.','.$commentaire_id_id.',"'.$descriptif.'","'.$creation_date.'");';
+
+
+       // returns an array of arrays (i.e. a raw data set)
+       return $conn->fetchAllAssociative($sql);
+   }
+
     public function findCommentByProjetID($projet_id) 
     {
        $conn = $this->getEntityManager()->getConnection();
        $sql = '
-      SELECT c.id,c.commentaire,c.creation_date,c.personne_id_id,c.projet_id_id,c.commentaire_referent_id_id,p.login as login FROM commentaire c INNER JOIN personne p ON c.personne_id_id=p.id WHERE c.projet_id_id='.$projet_id.';';
+      SELECT c.id,c.commentaire,c.creation_date,c.personne_id_id,c.projet_id_id,c.commentaire_referent_id_id,c.is_lock,p.login as login FROM commentaire c INNER JOIN personne p ON c.personne_id_id=p.id WHERE c.projet_id_id='.$projet_id.';';
 
 
        // returns an array of arrays (i.e. a raw data set)
@@ -63,8 +77,8 @@ class CommentaireRepository extends ServiceEntityRepository
    }
     // /**
     //  * @return Commentaire[] Returns an array of Commentaire objects
-    //  **/
-    /**
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('c')
@@ -76,9 +90,9 @@ class CommentaireRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    **/
+    */
 
-    /**
+    /*
     public function findOneBySomeField($value): ?Commentaire
     {
         return $this->createQueryBuilder('c')
@@ -88,5 +102,5 @@ class CommentaireRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    **/
+    */
 }

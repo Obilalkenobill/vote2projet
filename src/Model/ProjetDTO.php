@@ -16,27 +16,27 @@ class ProjetDTO
      * @var string
      * @Assert\NotBlank()
      * @Assert\Length(min=25,minMessage="Le titre doit avoir au moins 25 caractères !",max=125,maxMessage="Le titre ne peut pas dépasser 125 caractères !")
-     **/
+     */
  private string $titre;
     /**
      * @var string
      * @Assert\NotBlank
      * @Assert\Length(min=125,minMessage="Le descriptif doit avoir au moins 125 caractères !")
-     **/
+     */
  private string $descriptif;
     /**
      * @var DateTime
      * @Assert\DateTime()
-     **/
+     */
  private DateTime $creation_date;
     /**
      * @var Personne
-     **/
+     */
  private Personne $personne_id;
 
     /**
      * @return string
-     **/
+     */
     public function getTitre(): string
     {
         return $this->titre;
@@ -45,7 +45,7 @@ class ProjetDTO
     /**
      * @param string $titre
      * @return ProjetDTO
-     **/
+     */
     public function setTitre(string $titre): ProjetDTO
     {
         $this->titre = $titre;
@@ -54,7 +54,7 @@ class ProjetDTO
 
     /**
      * @return string
-     **/
+     */
     public function getDescriptif(): string
     {
         return $this->descriptif;
@@ -63,7 +63,7 @@ class ProjetDTO
     /**
      * @param string $descriptif
      * @return ProjetDTO
-     **/
+     */
     public function setDescriptif(string $descriptif): ProjetDTO
     {
         $this->descriptif = $descriptif;
@@ -72,7 +72,7 @@ class ProjetDTO
 
     /**
      * @return DateTime
-     **/
+     */
     public function getCreationDate(): DateTime
     {
         return $this->creation_date;
@@ -81,7 +81,7 @@ class ProjetDTO
     /**
      * @param DateTime $creation_date
      * @return ProjetDTO
-     **/
+     */
     public function setCreationDate(DateTime $creation_date): ProjetDTO
     {
         $this->creation_date = $creation_date;
@@ -90,7 +90,7 @@ class ProjetDTO
 
     /**
      * @return Personne
-     **/
+     */
     public function getPersonneId(): Personne
     {
         return $this->personne_id;
@@ -99,7 +99,7 @@ class ProjetDTO
     /**
      * @param Personne $personne_id
      * @return ProjetDTO
-     **/
+     */
     public function setPersonneId(Personne $personne_id): ProjetDTO
     {
         $this->personne_id = $personne_id;

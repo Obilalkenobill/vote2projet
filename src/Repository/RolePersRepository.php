@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method RolePers|null findOneBy(array $criteria, array $orderBy = null)
  * @method RolePers[]    findAll()
  * @method RolePers[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class RolePersRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

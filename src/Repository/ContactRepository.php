@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Contact|null findOneBy(array $criteria, array $orderBy = null)
  * @method Contact[]    findAll()
  * @method Contact[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class ContactRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,8 +21,8 @@ class ContactRepository extends ServiceEntityRepository
 
     // /**
     //  * @return Contact[] Returns an array of Contact objects
-    //  **/
-    /**
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('c')
@@ -34,9 +34,9 @@ class ContactRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    **/
+    */
 
-    /**
+    /*
     public function findOneBySomeField($value): ?Contact
     {
         return $this->createQueryBuilder('c')
@@ -46,5 +46,5 @@ class ContactRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    **/
+    */
 }

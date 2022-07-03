@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Role|null findOneBy(array $criteria, array $orderBy = null)
  * @method Role[]    findAll()
  * @method Role[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class RoleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,8 +21,8 @@ class RoleRepository extends ServiceEntityRepository
 
     // /**
     //  * @return Role[] Returns an array of Role objects
-    //  **/
-    /**
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('r')
@@ -34,9 +34,9 @@ class RoleRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    **/
+    */
 
-    /**
+    /*
     public function findOneBySomeField($value): ?Role
     {
         return $this->createQueryBuilder('r')
@@ -46,5 +46,5 @@ class RoleRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    **/
+    */
 }

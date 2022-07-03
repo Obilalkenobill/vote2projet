@@ -18,7 +18,7 @@ class RoleController extends AbstractFOSRestController
 {
     /**
      * @Route("/role", name="role")
-     **/
+     */
     public function index(): Response
     {
         return $this->render('role/index.html.twig', [
@@ -30,7 +30,7 @@ class RoleController extends AbstractFOSRestController
      * @Rest\Post("/api/create/role", name="app_create_role")
      * @Rest\View()
      * @ParamConverter("role",converter="fos_rest.request_body")
-     **/
+     */
     public function createRole(Role $role){
         $em = $this->getDoctrine()->getManager();
         $em->persist($role);
@@ -40,7 +40,7 @@ class RoleController extends AbstractFOSRestController
      * @Rest\Post("/api/set/role", name="app_set_role")
      * @Rest\View()
      * @ParamConverter("role_pers",converter="fos_rest.request_body")
-     **/
+     */
     public function setRole(RolePers $role_pers){
         $em = $this->getDoctrine()->getManager();
         $em->persist($role_pers);
@@ -52,7 +52,7 @@ class RoleController extends AbstractFOSRestController
      * @Rest\Get(path="/api/roles", name="roles_getall")
      * @Rest\View()
      * @return View
-     **/
+     */
     public function getAllRoles(RoleRepository $repo)
     {
         return $this->view([
@@ -61,7 +61,7 @@ class RoleController extends AbstractFOSRestController
     }
       /**
      * @Rest\Get(path="/api/role/{id}", name="role_getById")
-     **/
+     */
     public function getbyId($id)
     {
         $roleRepo=$this->getDoctrine()->getRepository(Role::class);
@@ -74,7 +74,7 @@ class RoleController extends AbstractFOSRestController
      * @Rest\Post("/api/roleUserById", name="appRoleUserByID")
      * @Rest\View()
      * @ParamConverter("role_pers",converter="fos_rest.request_body")
-     **/
+     */
     public function getRoleUserBybyId(RolePers $role_pers){
         $roleRepo=$this->getDoctrine()->getRepository(RolePers::class);
         $rolePers=$roleRepo->findOneBy(['role_id'=>$role_pers->getRoleId(),'personne_id'=>$role_pers->getPersonneId()]);
@@ -85,7 +85,7 @@ class RoleController extends AbstractFOSRestController
      * @Rest\Post("/api/delete/role", name="appDeleteRolePers")
      * @Rest\View()
      * @ParamConverter("role_pers",converter="fos_rest.request_body")
-     **/
+     */
     public function deleteRolePers(RolePers $role_pers,RolePersRepository $roleRepo){
       $roleRepo->deleteRoleUser($role_pers);
         return $this->view(["roles"=> $role_pers],Response::HTTP_ACCEPTED);
@@ -95,7 +95,7 @@ class RoleController extends AbstractFOSRestController
      * @Rest\Post("/api/delete/role/role", name="appDeleteRolePersRole")
      * @Rest\View()
      * @ParamConverter("role_pers",converter="fos_rest.request_body")
-     **/
+     */
      public function deleteRolePersRole(RolePers $role_pers,RolePersRepository $roleRepo){
       $roleRepo->deleteRole($role_pers);
         return $this->view(["roles"=> $role_pers],Response::HTTP_ACCEPTED);

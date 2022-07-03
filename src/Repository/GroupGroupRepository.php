@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method GroupGroup|null findOneBy(array $criteria, array $orderBy = null)
  * @method GroupGroup[]    findAll()
  * @method GroupGroup[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class GroupGroupRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,8 +21,8 @@ class GroupGroupRepository extends ServiceEntityRepository
 
     // /**
     //  * @return GroupGroup[] Returns an array of GroupGroup objects
-    //  **/
-    /**
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('g')
@@ -34,9 +34,9 @@ class GroupGroupRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    **/
+    */
 
-    /**
+    /*
     public function findOneBySomeField($value): ?GroupGroup
     {
         return $this->createQueryBuilder('g')
@@ -46,5 +46,5 @@ class GroupGroupRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    **/
+    */
 }

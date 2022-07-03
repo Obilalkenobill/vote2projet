@@ -11,29 +11,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProjetRepository::class)
- **/
+ */
 class Projet
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     **/
+     */
     private $id;
 
     /**
      * @ORM\Column(type="blob", nullable=true)
-     **/
+     */
     private $picture;
 
     /**
      * @ORM\Column (nullable=true, type="string")
-     **/
+     */
     private $mimeType;
 
     /**
      * @return mixed
-     **/
+     */
     public function getMimeType()
     {
         return $this->mimeType;
@@ -41,7 +41,7 @@ class Projet
 
     /**
      * @param mixed $mimeType
-     **/
+     */
     public function setMimeType($mimeType): void
     {
         $this->mimeType = $mimeType;
@@ -50,12 +50,12 @@ class Projet
     /**
      * @var UploadedFile
      * @Assert\File( mimeTypes= {"image/jpeg","image/jpg","image/png"}, maxSize="20000000" )
-     **/
+     */
     private $file;
 
     /**
      * @return UploadedFile
-     **/
+     */
     public function getFile()
     {
         return $this->file;
@@ -63,28 +63,28 @@ class Projet
 
     /**
      * @param UploadedFile $file
-     **/
+     */
     public function setFile(UploadedFile $file): void
     {
         $this->file = $file;
     }
     /**
      * @ORM\Column(type="string", length=255)
-     **/
+     */
     private $titre;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     **/
+     */
     private $nbr_vote_pour;
     /**
      * @ORM\Column(type="integer", nullable=true)
-     **/
+     */
     private $nbr_vote_null;
 
     /**
      * @return mixed
-     **/
+     */
     public function getNbrVoteNull()
     {
         return $this->nbr_vote_null;
@@ -93,7 +93,7 @@ class Projet
     /**
      * @param mixed $nbr_vote_null
      * @return Projet
-     **/
+     */
     public function setNbrVoteNull($nbr_vote_null)
     {
         $this->nbr_vote_null = $nbr_vote_null;
@@ -102,7 +102,7 @@ class Projet
 
     /**
      * @return mixed
-     **/
+     */
     public function getNbrVoteContre()
     {
         return $this->nbr_vote_contre;
@@ -111,7 +111,7 @@ class Projet
     /**
      * @param mixed $nbr_vote_contre
      * @return Projet
-     **/
+     */
     public function setNbrVoteContre($nbr_vote_contre)
     {
         $this->nbr_vote_contre = $nbr_vote_contre;
@@ -119,52 +119,52 @@ class Projet
     }
     /**
      * @ORM\Column(type="integer", nullable=true)
-     **/
+     */
     private $nbr_vote_contre;
     /**
      * @ORM\Column(type="text")
-     **/
+     */
     private $descriptif;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     **/
+     */
     private $date_adm;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     **/
+     */
     private $date_rej;
 
     /**
      * @ORM\Column(type="datetime")
-     **/
+     */
     private $creation_date;
 
     /**
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="projets",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
-     **/
+     */
     private $personne_id;
 
     /**
      * @ORM\OneToMany(targetEntity=SignalProjet::class, mappedBy="projet_id")
-     **/
+     */
     private $signalProjets;
 
     /**
      * @ORM\OneToMany(targetEntity=Vote::class, mappedBy="projet_id", orphanRemoval=true)
-     **/
+     */
     private $votes;
 
     /**
      * @ORM\OneToMany(targetEntity=Follow::class, mappedBy="projet_id")
-     **/
+     */
     private $follows;
 
     /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="projet_id", orphanRemoval=true)
-     **/
+     */
     private $commentaires;
 
     public function __construct()
@@ -266,7 +266,7 @@ class Projet
 
     /**
      * @return Collection|SignalProjet[]
-     **/
+     */
     public function getSignalProjets(): Collection
     {
         return $this->signalProjets;
@@ -296,7 +296,7 @@ class Projet
 
     /**
      * @return Collection|Vote[]
-     **/
+     */
     public function getVotes(): Collection
     {
         return $this->votes;
@@ -326,7 +326,7 @@ class Projet
 
     /**
      * @return Collection|Follow[]
-     **/
+     */
     public function getFollows(): Collection
     {
         return $this->follows;
@@ -356,7 +356,7 @@ class Projet
 
     /**
      * @return Collection|Commentaire[]
-     **/
+     */
     public function getCommentaires(): Collection
     {
         return $this->commentaires;

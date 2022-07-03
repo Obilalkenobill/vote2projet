@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Follow|null findOneBy(array $criteria, array $orderBy = null)
  * @method Follow[]    findAll()
  * @method Follow[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class FollowRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,8 +21,8 @@ class FollowRepository extends ServiceEntityRepository
 
     // /**
     //  * @return Follow[] Returns an array of Follow objects
-    //  **/
-    /**
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('f')
@@ -34,9 +34,9 @@ class FollowRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    **/
+    */
 
-    /**
+    /*
     public function findOneBySomeField($value): ?Follow
     {
         return $this->createQueryBuilder('f')
@@ -46,5 +46,5 @@ class FollowRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    **/
+    */
 }

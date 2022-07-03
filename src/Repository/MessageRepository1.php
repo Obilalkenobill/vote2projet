@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Message|null findOneBy(array $criteria, array $orderBy = null)
  * @method Message[]    findAll()
  * @method Message[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class MessageRepository1 extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,8 +21,8 @@ class MessageRepository1 extends ServiceEntityRepository
 
     // /**
     //  * @return Message[] Returns an array of Message objects
-    //  **/
-    /**
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('m')
@@ -34,9 +34,9 @@ class MessageRepository1 extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    **/
+    */
 
-    /**
+    /*
     public function findOneBySomeField($value): ?Message
     {
         return $this->createQueryBuilder('m')
@@ -46,5 +46,5 @@ class MessageRepository1 extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    **/
+    */
 }

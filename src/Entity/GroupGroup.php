@@ -7,25 +7,25 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=GroupGroupRepository::class)
- **/
+ */
 class GroupGroup
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     **/
+     */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=78)
-     **/
+     */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=personne::class)
      * @ORM\JoinColumn(nullable=false)
-     **/
+     */
     private $pers_init_id;
 
     public function getId(): ?int

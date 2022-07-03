@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Adresse|null findOneBy(array $criteria, array $orderBy = null)
  * @method Adresse[]    findAll()
  * @method Adresse[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class AdresseRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,8 +21,8 @@ class AdresseRepository extends ServiceEntityRepository
 
     // /**
     //  * @return Adresse[] Returns an array of Adresse objects
-    //  **/
-    /**
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('a')
@@ -34,9 +34,9 @@ class AdresseRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    **/
+    */
 
-    /**
+    /*
     public function findOneBySomeField($value): ?Adresse
     {
         return $this->createQueryBuilder('a')
@@ -46,5 +46,5 @@ class AdresseRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    **/
+    */
 }

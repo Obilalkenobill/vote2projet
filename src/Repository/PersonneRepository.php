@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Personne|null findOneBy(array $criteria, array $orderBy = null)
  * @method Personne[]    findAll()
  * @method Personne[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class PersonneRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -144,10 +144,49 @@ return $personne;
           // returns an array of arrays (i.e. a raw data set)
           return $conn->fetchAllAssociative($sql);
     }
+
+
+    public function searchInCont($search_txt,$user_id){
+        $conn = $this->getEntityManager()->getConnection();
+        $sql='SELECT * FROM (
+        SELECT DISTINCT p.id,p.is_on_line,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
+                FROM    personne p
+                INNER JOIN contact co 
+                ON p.id=co.personne1_id_id
+                WHERE 
+                (co.personne2_id_id='.$user_id.' OR co.personne1_id_id='.$user_id.') 
+                AND (co.accept_personne1=1 AND co.accept_personne2=1)
+                UNION ALL
+                SELECT DISTINCT p.id,p.is_on_line,p.nom,p.prenom,p.login,co.personne1_id_id,co.personne2_id_id,co.accept_personne1,co.accept_personne2 
+                FROM personne p
+                INNER JOIN contact co 
+                ON p.id=co.personne2_id_id
+                WHERE 
+                (co.personne2_id_id='.$user_id.' OR co.personne1_id_id='.$user_id.') 
+                AND (co.accept_personne1=1 AND co.accept_personne2=1) ) t
+           WHERE
+           t.id !='.$user_id.'
+           AND
+           (
+            t.nom LIKE" %'.$search_txt.'%" 
+           OR t.prenom LIKE "%'.$search_txt.'%" 
+           OR t.login LIKE "%'.$search_txt.'%"
+           OR CONCAT(t.prenom," ",t.nom) LIKE "%'.$search_txt.'%" 
+           OR CONCAT(t.nom," ",t.prenom) LIKE "%'.$search_txt.'%" 
+           OR CONCAT(t.login," ",t.nom) LIKE "%'.$search_txt.'%" 
+           OR CONCAT(t.nom," ",t.login) LIKE "%'.$search_txt.'%" 
+           OR CONCAT(t.prenom," ",t.login) LIKE "%'.$search_txt.'%" 
+           OR CONCAT(t.login," ",t.prenom) LIKE "%'.$search_txt.'%" 
+            );';
+  // returns an array of arrays (i.e. a raw data set)
+          return $conn->fetchAllAssociative($sql);;
+    }
+
+
     // /**
     //  * @return Personne[] Returns an array of Personne objects
-    //  **/
-    /**
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('p')
@@ -159,9 +198,9 @@ return $personne;
             ->getResult()
         ;
     }
-    **/
+    */
 
-    /**
+    /*
     public function findOneBySomeField($value): ?Personne
     {
         return $this->createQueryBuilder('p')
@@ -171,5 +210,5 @@ return $personne;
             ->getOneOrNullResult()
         ;
     }
-    **/
+    */
 }

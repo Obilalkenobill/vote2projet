@@ -12,6 +12,7 @@ use FOS\RestBundle\View\View;
 use App\Repository\FollowRepository;
 use App\Repository\ProjetRepository;
 use App\Repository\MessageRepository;
+use App\Repository\PersonneRepository;
 use App\Repository\GroupPersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommentaireRepository;
@@ -19,8 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -29,7 +30,7 @@ class MessageController extends AbstractFOSRestController
 
     /**
      * @Route("/message", name="message")
-     **/
+     */
     public function index(): Response
     {
         return $this->render('message/index.html.twig', [
@@ -41,7 +42,7 @@ class MessageController extends AbstractFOSRestController
      * @Rest\Post("/api/personne/send/message", name="app_post_message")
      * @Rest\View()
      * @ParamConverter("message",converter="fos_rest.request_body")
-     **/
+     */
     public function MessagePost(Request $req, Message $message, MessageRepository $repo, GroupPersRepository $group_pers_repo){
         $em = $this->getDoctrine()->getManager();
      $message->setCreationDate(new \DateTime(), new \DateTimeZone('Europe/Paris'));
@@ -54,9 +55,18 @@ class MessageController extends AbstractFOSRestController
     /**
      * @Rest\Get (path="api/personne/message_by_group/{Groupe_ID}/{Personne_ID}",name="api_get_all_XAmessage")
      * @Rest\View()
-     **/
+     */
     public function getMessageGroupe($Groupe_ID, $Personne_ID, MessageRepository $repo){
         $Messages=$repo->findMessageByGroupId($Groupe_ID,$Personne_ID);
         return $this->view( [$Messages]);
+    }
+
+    /**
+     * @Rest\Get (path="api/personne/searchCont/{search_txt}/{user_id}",name="api_searchCont")
+     * @Rest\View()
+     */
+    public function searchCont($search_txt,$user_id, PersonneRepository $repo){
+        $contacts=$repo->searchInCont($search_txt,$user_id);
+        return $this->view( [$contacts]);
     }
 }

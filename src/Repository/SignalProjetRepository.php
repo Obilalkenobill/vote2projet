@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method SignalProjet|null findOneBy(array $criteria, array $orderBy = null)
  * @method SignalProjet[]    findAll()
  * @method SignalProjet[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class SignalProjetRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,8 +21,8 @@ class SignalProjetRepository extends ServiceEntityRepository
 
     // /**
     //  * @return SignalProjet[] Returns an array of SignalProjet objects
-    //  **/
-    /**
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('s')
@@ -34,9 +34,9 @@ class SignalProjetRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    **/
+    */
 
-    /**
+    /*
     public function findOneBySomeField($value): ?SignalProjet
     {
         return $this->createQueryBuilder('s')
@@ -46,5 +46,5 @@ class SignalProjetRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    **/
+    */
 }

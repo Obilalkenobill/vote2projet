@@ -7,36 +7,36 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=SignalCommentaireRepository::class)
- **/
+ */
 class SignalCommentaire
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     **/
+     */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Commentaire::class, inversedBy="signalCommentaires")
      * @ORM\JoinColumn(nullable=false)
-     **/
+     */
     private $commentaire_id;
 
     /**
      * @ORM\Column(type="text")
-     **/
+     */
     private $descriptif;
 
     /**
      * @ORM\ManyToOne(targetEntity=Personne::class, inversedBy="signalCommentaires")
      * @ORM\JoinColumn(nullable=false)
-     **/
+     */
     private $personne_id;
 
     /**
      * @ORM\Column(type="datetime")
-     **/
+     */
     private $creation_date;
 
     public function getId(): ?int

@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Vote|null findOneBy(array $criteria, array $orderBy = null)
  * @method Vote[]    findAll()
  * @method Vote[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- **/
+ */
 class VoteRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -27,8 +27,8 @@ class VoteRepository extends ServiceEntityRepository
     }
     // /**
     //  * @return Vote[] Returns an array of Vote objects
-    //  **/
-    /**
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('v')
@@ -40,9 +40,9 @@ class VoteRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    **/
+    */
 
-    /**
+    /*
     public function findOneBySomeField($value): ?Vote
     {
         return $this->createQueryBuilder('v')
@@ -52,5 +52,5 @@ class VoteRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    **/
+    */
 }
