@@ -145,6 +145,16 @@ return $personne;
           return $conn->fetchAllAssociative($sql);
     }
 
+    public function findAll2(){
+        $conn = $this->getEntityManager()->getConnection();
+        $sql='SELECT p.id,p.nom,p.prenom,p.login,p.email,p.is_active,p.creation_date,p.is_verified,p.nn
+             FROM personne p  ; ';
+      
+  
+          // returns an array of arrays (i.e. a raw data set)
+          return $conn->fetchAllAssociative($sql);
+    }
+
 
     public function searchInCont($search_txt,$user_id){
         $conn = $this->getEntityManager()->getConnection();
