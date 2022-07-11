@@ -192,6 +192,12 @@ class ProjetController extends AbstractFOSRestController
         $commentaire_id_id=$data["commentaire_id_id"];
         $descriptif=$data["descriptif"];
         $repo->signal($personne_id_id, $commentaire_id_id, $descriptif);
+        $commentaire=$repo->findOneBy( [ 'id' => ( $commentaire_id_id ) ]);
+        $commentaire->setIsLock(3);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($commentaire);
+        $em->flush();
+
     }
 
         /**
