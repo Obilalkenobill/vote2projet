@@ -147,7 +147,7 @@ class ProjetController extends AbstractFOSRestController
      /**
      * @Rest\Post("/create/follow", name="appCreateFollow")
      * @Rest\View()
-     * @ParamConverter("follow",converter="fos_rest.request_body")
+     * @ParamConverter("Follow",converter="fos_rest.request_body")
      */
     public function addFollow(Follow $follow){
         // $followbis=new Follow();
