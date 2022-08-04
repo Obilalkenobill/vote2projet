@@ -106,7 +106,6 @@ class ProjetController extends AbstractFOSRestController
     public function getFollowUserById(Follow $follow, FollowRepository $repo){
         $followReturn=$repo->findOneBy(['projet_id'=>$follow->getProjetId(),'personne_id'=>$follow->getPersonneId()]);
         $bool=true;
-        dump($followReturn);
         if($followReturn==[])
         {
           $bool=false;
