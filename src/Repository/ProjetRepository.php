@@ -115,6 +115,14 @@ class ProjetRepository extends ServiceEntityRepository
 
         // returns an array of arrays (i.e. a raw data set)
         return $conn->fetchAllAssociative($sql);
+    }    
+    
+    public function save_follow($personne_id,$projet_id){
+        $conn = $this->getEntityManager()->getConnection();
+      $sql='INSERT INTO Follow (projet_id_id,personne_id_id) VALUES ('.$projet_id.','.$personne_id.');';
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $conn->fetchAllAssociative($sql);
     }
     public function findAllbis($personne_id){
         $conn = $this->getEntityManager()->getConnection();

@@ -147,15 +147,12 @@ class ProjetController extends AbstractFOSRestController
      /**
      * @Rest\Post("/create/follow", name="appCreateFollow")
      * @Rest\View()
-     * @ParamConverter("Follow",converter="fos_rest.request_body")
+     *  @param Request $req
      */
-    public function addFollow(Follow $Follow){
-        //  $followbis=new Follow();
-        //  $followbis->setPersonneId($Follow->getPersonneId());
-        //  $followbis->setProjetId($Follow->getProjetId());
-        $em = $this->getDoctrine()->getManager();
-       $em->persist($Follow);
-        $em->flush();
+    public function addFollow(Request $req, ProjetRepository $repo){
+        $personne_id=$req->request->get('personne_id') ;
+        $projet_id=$req->request->get('projet_id') ;
+$repo->save_follow($personne_id,$projet_id);
         return $this->view(Response::HTTP_CREATED);
     }
 
