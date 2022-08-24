@@ -49,7 +49,7 @@ class PersonneController extends AbstractFOSRestController
     }
     
     /**
-     * @Rest\Get(path="/api/personne", name="personne_getall")
+     * @Rest\Get(path="/api/personne/all", name="personne_getall")
      * @Rest\View()
      * @return View
      */
